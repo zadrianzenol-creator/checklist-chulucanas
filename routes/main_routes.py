@@ -49,6 +49,7 @@ def index():
 def dashboard():
     stats = ChecklistService.stats_generales()
     por_local = ChecklistService.stats_por_local()
+    max_estado = max(stats["por_estado"].values()) if stats["por_estado"] else 0
 
     loc_id = request.args.get("local_id", type=int)
     dig_id = request.args.get("digitador_id", type=int)
@@ -87,6 +88,7 @@ def dashboard():
         "dashboard.html",
         stats=stats,
         por_local=por_local,
+        max_estado=max_estado,
         mesas=mesas,
         locales=locales,
         digitadores=digitadores,

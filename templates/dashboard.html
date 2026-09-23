@@ -69,12 +69,10 @@
       ('OBSERVADA', 'Observada'),
       ('CERRADA', 'Cerrada · archivada')
     ] %}
-    {% set maxc = [1] %}
-    {% for e, _ in etapas %}{% if stats.por_estado.get(e, 0) > maxc[0] %}{% set _ = maxc.append(stats.por_estado.get(e, 0)) %}{% endif %}{% endfor %}
     <div class="funnel mt-3">
       {% for e, label in etapas %}
       {% set n = stats.por_estado.get(e, 0) %}
-      {% set pct = ((n / maxc[0]) * 100) if maxc[0] else 0 %}
+      {% set pct = ((n / max_estado) * 100) if max_estado else 0 %}
       <div class="funnel__row">
         <span class="funnel__label">{{ label }}</span>
         <div class="funnel__track">
