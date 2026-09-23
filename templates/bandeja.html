@@ -1,8 +1,18 @@
 {% extends "base.html" %}
-{% block title %}Mi bandeja · Control de Actas Chulucanas 2026{% endblock %}
-{% block heading %}Bandeja del digitador: {{ current_user.full_name or current_user.username }}{% endblock %}
-{% block subtitle %}Fase digital y control de calidad · sin ingreso de votos{% endblock %}
+{% block title %}Bandeja · Control de Actas Chulucanas 2026{% endblock %}
+{% block heading %}Bandeja: {{ digitador_nombre }}{% endblock %}
+{% block subtitle %}{{ 'Supervisión del administrador' if vista_admin else 'Fase digital y control de calidad · sin ingreso de votos' }}{% endblock %}
 {% block content %}
+
+{% if vista_admin %}
+<div class="toolbar" style="margin-bottom:4px;">
+  <select class="input input-select" id="bandeja-dig" onchange="location.href='/bandeja?dig=' + this.value">
+    {% for d in digitadores %}
+    <option value="{{ d.id }}" {{ 'selected' if d.id == digitador_actual else '' }}>{{ d.full_name or d.username }}</option>
+    {% endfor %}
+  </select>
+</div>
+{% endif %}
 
 <div class="chip-row">
   <span class="chip-stat"><b>{{ conteo.fotos + conteo.registro }}</b><span>En fase digital</span></span>

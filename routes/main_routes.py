@@ -97,12 +97,31 @@ def dashboard():
 
 
 # ---------------------------------------------------------------------------
-# Bandeja del digitador
+# Bandeja del digitador (admin la ve como supervisión con ?dig=N)
 # ---------------------------------------------------------------------------
 @main_bp.route("/bandeja")
-@role_required("digitador")
+@role_required("digitador", "admin")
 def bandeja():
-    base = Mesa.query.filter(Mesa.digitador_id == current_user.id)
+    digitadores = (
+        User.query.filter_by(role="digitador", is_active=True)
+        .order_by(User.full_name.asc())
+        .all()
+    )
+    vista_admin = current_user.role == "admin"
+
+    if vista_admin:
+        dig_id = request.args.get("dig", type=int)
+        if not dig_id or not any(d.id == dig_id for d in digitadores):
+            dig_id = digitadores[0].id if digitadores else None
+        dig_nombre = (
+            next((d.full_name or d.username for d in digitadores if d.id == dig_id), "Sin digitador")
+            if dig_id else "Sin digitador"
+        )
+    else:
+        dig_id = current_user.id
+        dig_nombre = current_user.full_name or current_user.username
+
+    base = Mesa.query.filter(Mesa.digitador_id == dig_id) if dig_id else Mesa.query.filter(db.false())
 
     digital = base.filter(Mesa.estado.in_(["PENDIENTE", "FOTO RECIBIDA", "EN REGISTRO"])).all()
     calidad = base.filter(Mesa.estado == "EN CONTROL DE CALIDAD").all()
@@ -122,6 +141,10 @@ def bandeja():
         digital=agrupar(digital),
         calidad=agrupar(calidad),
         terminadas=terminadas,
+        vista_admin=vista_admin,
+        digitador_actual=dig_id,
+        digitador_nombre=dig_nombre,
+        digitadores=digitadores,
         conteo={
             "pendientes": base.filter(Mesa.estado == "PENDIENTE").count(),
             "fotos": base.filter(Mesa.estado == "FOTO RECIBIDA").count(),

@@ -49,7 +49,7 @@
           Dashboard
         </a>
         <div class="nav-section">Operación</div>
-        <a class="nav-link {{ 'active' if active == 'bandeja' else '' }}" href="{{ url_for('main.bandeja') }}?dig={{ current_user.id }}">
+        <a class="nav-link {{ 'active' if active == 'bandeja' else '' }}" href="{{ url_for('main.bandeja') }}">
           <svg><use href="/static/img/icons.svg#i-tray"></use></svg>
           Bandeja
         </a>
