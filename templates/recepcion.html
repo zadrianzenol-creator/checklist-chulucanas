@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+{% block title %}Recepción y Custodia · Control de Actas{% endblock %}
+{% block heading %}Recepción y Custodia{% endblock %}
+{% block subtitle %}Recibe los originales, arma lotes y gestiona el archivo{% endblock %}
+{% block content %}
+
+<div class="chip-row">
+  <span class="chip-stat"><b>{{ llegada|length }}</b><span>Esperando llegada física</span></span>
+  <span class="chip-stat"><b>{{ preparar|length }}</b><span>Pendientes de control</span></span>
+  <span class="chip-stat"><b>{{ archivo|length }}</b><span>Listas para archivo</span></span>
+  <span class="chip-stat"><b style="color:#fb7185;">{{ observadas|length }}</b><span>Observadas</span></span>
+  <span class="chip-stat"><b>{{ lotes|length }}</b><span>Lotes</span></span>
+</div>
+
+<div class="bandeja-grid mt-4 row-start">
+  <section data-select-group>
+    <div class="panel-head">
+      <div>
+        <h3>1 · Registro de llegada física</h3>
+        <p>El original llegó al centro de cómputo.</p>
+      </div>
+      <span class="badge badge-chip">{{ llegada|length }}</span>
+    </div>
+
+    <div class="mesa-list mt-2">
+      {% for m in llegada %}
+      <label class="mesa-row row-check">
+        <input type="checkbox" class="ck" data-pick="llegada" data-mesa-id="{{ m.id }}">
+        <div class="mesa-row__info">
+          <b>Mesa {{ m.numero }}</b>
+          <span class="muted">{{ m.local.nombre }} · Aula {{ m.aula or '—' }}</span>
+        </div>
+        <span class="st-chip st-registrada">Registrada</span>
+      </label>
+      {% endfor %}
+    </div>
+    <button class="btn btn-sm btn-warn mt-2" type="button" data-accion-bulk data-tipo="llegada" disabled>
+      <svg><use href="/static/img/icons.svg#i-inbox"></use></svg>
+      Registrar llegada ({{ llegada|length }})
+    </button>
+    {% if not llegada %}
+    <div class="empty-small">Nada pendiente de llegada física.</div>
+    {% endif %}
+  </section>
+
+  <section data-select-group>
+    <div class="panel-head">
+      <div>
+        <h3>2 · Preparar lote</h3>
+        <p>Agrupa actas recibidas en un lote para control de calidad.</p>
+      </div>
+      <span class="badge badge-chip">{{ preparar|length }}</span>
+    </div>
+
+    <div class="mesa-list mt-2">
+      {% for m in preparar %}
+      <label class="mesa-row row-check">
+        <input type="checkbox" class="ck" data-pick="lote" data-mesa-id="{{ m.id }}">
+        <div class="mesa-row__info">
+          <b>Mesa {{ m.numero }}</b>
+          <span class="muted">{{ m.local.nombre }} · Pab. {{ m.pabellon or '—' }}</span>
+        </div>
+        <span class="st-chip st-pendiente-de-control">Prep. lote</span>
+      </label>
+      {% endfor %}
+    </div>
+    <button class="btn btn-sm btn-warn mt-2" type="button" data-accion-bulk data-tipo="lote" disabled>
+      <svg><use href="/static/img/icons.svg#i-box"></use></svg>
+      Crear lote con seleccionadas
+    </button>
+    {% if not preparar %}
+    <div class="empty-small">No hay actas recibidas para agrupar.</div>
+    {% endif %}
+  </section>
+</div>
+
+<div class="chart-grid mt-4">
+  <section class="card chart-card">
+    <div class="panel-head">
+      <div>
+        <h3>Lotes activos</h3>
+        <p>Entrega el lote al digitador para iniciar el control.</p>
+      </div>
+      <a class="backlink" href="{{ url_for('main.lotes') }}">Ver todos
+        <svg><use href="/static/img/icons.svg#i-external"></use></svg>
+      </a>
+    </div>
+
+    <div class="lote-mini mt-2">
+      {% for l in lotes if l.estado == 'ARMADO' %}
+      <div class="lote-card" data-lote="{{ l.id }}" data-lote-codigo="{{ l.codigo }}">
+        <div class="lote-card__top">
+          <div class="lote-badge">📦 {{ l.codigo }}</div>
+          <span class="st-chip st-armado">ARMADO</span>
+        </div>
+        <p class="muted" style="font-size:12.5px;">{{ l.total_mesas }} mesas · {{ l.creador.full_name if l.creador else '—' }}</p>
+        <div class="lote-card__actions">
+          <select class="input input-select" data-lote-dig="{{ l.id }}">
+            <option value="">Digitador…</option>
+            {% for d in digitadores %}
+            <option value="{{ d.id }}">{{ d.full_name or d.username }}</option>
+            {% endfor %}
+          </select>
+          <button class="btn btn-sm" type="button" data-entregar-lote="{{ l.id }}">Entregar</button>
+        </div>
+      </div>
+      {% else %}
+      <div class="empty-small">No hay lotes armados esperando entrega.</div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="card chart-card">
+    <div class="panel-head">
+      <div>
+        <h3>Archivo de actas conformes</h3>
+        <p>Devolver al archivo las mesas ya verificadas.</p>
+      </div>
+      <span class="badge badge-chip">{{ archivo|length }}</span>
+    </div>
+
+    <div class="mesa-list mt-2" data-select-group>
+      {% for m in archivo %}
+      <label class="mesa-row row-check">
+        <input type="checkbox" class="ck" data-pick="archivo" data-mesa-id="{{ m.id }}">
+        <div class="mesa-row__info">
+          <b>Mesa {{ m.numero }}</b>
+          <span class="muted">{{ m.local.nombre }} · Lote {{ m.lote.codigo if m.lote else '—' }}</span>
+        </div>
+        <span class="st-chip st-conforme">Conforme</span>
+      </label>
+      {% else %}
+      <div class="empty-small">No hay mesas conformes por archivar.</div>
+      {% endfor %}
+    </div>
+    <button class="btn btn-sm btn-ok mt-2" type="button" data-accion-bulk data-tipo="archivo" disabled>
+      <svg><use href="/static/img/icons.svg#i-vault"></use></svg>
+      Archivar seleccionadas
+    </button>
+  </section>
+</div>
+
+{% if observadas %}
+<div class="card mt-4">
+  <div class="panel-head">
+    <div>
+      <h3>Actas observadas</h3>
+      <p>Una acta observada no puede cerrarse hasta resolver la incidencia.</p>
+    </div>
+    <span class="badge badge-danger">{{ observadas|length }}</span>
+  </div>
+  <div class="mesa-list mt-2">
+    {% for m in observadas %}
+    <div class="mesa-row">
+      <div class="mesa-row__info">
+        <b>Mesa {{ m.numero }}</b>
+        <span class="muted">{{ m.local.nombre }}</span>
+      </div>
+      <div class="obs-box">
+        <svg><use href="/static/img/icons.svg#i-alert"></use></svg>
+        {{ m.observacion }}
+      </div>
+      <button class="btn btn-sm btn-ghost" type="button" data-ver-traza="{{ m.id }}">
+        <svg><use href="/static/img/icons.svg#i-eye"></use></svg>
+        Seguimiento
+      </button>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block modals %}
+<div class="modal-overlay" id="modal-traza">
+  <div class="modal modal-lg" style="position:relative;">
+    <button class="modal__close" type="button" data-close-modal="modal-traza">
+      <svg><use href="/static/img/icons.svg#i-x"></use></svg>
+    </button>
+    <h3>Trazabilidad</h3>
+    <p style="color:var(--muted);" data-traza-nombre>Mesa</p>
+    <div class="sec-title">Historial de acciones</div>
+    <div class="timeline" data-traza-eventos></div>
+    <div class="sec-title">Observaciones</div>
+    <div id="obs-historial"></div>
+  </div>
+</div>
+{% endblock %}

@@ -1,6 +1,26 @@
 from database import db
 
-ESTADOS = ("PENDIENTE", "VERIFICADA", "OBSERVADO")
+ESTADOS = (
+    "PENDIENTE",
+    "FOTO RECIBIDA",
+    "EN REGISTRO",
+    "REGISTRADA",
+    "PENDIENTE DE CONTROL",
+    "EN CONTROL DE CALIDAD",
+    "CONFORME",
+    "OBSERVADA",
+    "CERRADA",
+)
+
+# Etapas del embudo para el dashboard
+FASES = {
+    "digital": ("PENDIENTE", "FOTO RECIBIDA", "EN REGISTRO", "REGISTRADA"),
+    "custodia": ("PENDIENTE DE CONTROL",),
+    "calidad": ("EN CONTROL DE CALIDAD",),
+    "conforme": ("CONFORME",),
+    "observada": ("OBSERVADA",),
+    "cerrada": ("CERRADA",),
+}
 
 
 class Local(db.Model):
@@ -25,22 +45,18 @@ class Local(db.Model):
     )
 
     @property
-    def verificadas(self):
-        return self.mesas.filter(Mesa.estado == "VERIFICADA").count()
+    def cerradas(self):
+        return self.mesas.filter(Mesa.estado == "CERRADA").count()
 
     @property
     def observadas(self):
-        return self.mesas.filter(Mesa.estado == "OBSERVADO").count()
-
-    @property
-    def pendientes(self):
-        return self.mesas.filter(Mesa.estado == "PENDIENTE").count()
+        return self.mesas.filter(Mesa.estado == "OBSERVADA").count()
 
     @property
     def avance(self):
         if self.total_mesas == 0:
             return 0
-        return round((self.verificadas / self.total_mesas) * 100, 1)
+        return round((self.cerradas / self.total_mesas) * 100, 1)
 
     def to_dict(self):
         return {
@@ -51,9 +67,8 @@ class Local(db.Model):
             "ubicacion": self.ubicacion,
             "total_mesas": self.total_mesas,
             "total_electores": self.total_electores,
-            "verificadas": self.verificadas,
+            "cerradas": self.cerradas,
             "observadas": self.observadas,
-            "pendientes": self.pendientes,
             "avance": self.avance,
         }
 
@@ -71,10 +86,34 @@ class Mesa(db.Model):
     electores = db.Column(db.Integer, default=0)
     electores_discapacidad = db.Column(db.Integer, default=0)
 
-    estado = db.Column(db.String(20), default="PENDIENTE", index=True)
+    estado = db.Column(db.String(24), default="PENDIENTE", index=True)
     observacion = db.Column(db.Text, default="")
+    digitador_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=True, index=True)
+    lote_id = db.Column(db.Integer, db.ForeignKey("lotes.id"), nullable=True, index=True)
     updated_by = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=True)
     updated_at = db.Column(db.DateTime, nullable=True)
+
+    digitador = db.relationship(
+        "User",
+        foreign_keys=[digitador_id],
+        backref="mesas_asignadas",
+        lazy="joined",
+    )
+    lote = db.relationship("Lote", back_populates="mesas", lazy="joined")
+    observaciones = db.relationship(
+        "Observacion",
+        backref="mesa",
+        lazy="dynamic",
+        cascade="all, delete-orphan",
+        order_by="Observacion.fecha.desc()",
+    )
+
+    @property
+    def fase(self):
+        for nombre, estados in FASES.items():
+            if self.estado in estados:
+                return nombre
+        return "digital"
 
     def to_dict(self):
         return {
@@ -89,6 +128,11 @@ class Mesa(db.Model):
             "estado": self.estado,
             "observacion": self.observacion,
             "local_id": self.local_id,
+            "local_nombre": self.local.nombre if self.local else "",
+            "digitador_id": self.digitador_id,
+            "digitador": self.digitador.full_name or self.digitador.username if self.digitador else None,
+            "lote_id": self.lote_id,
+            "lote_codigo": self.lote.codigo if self.lote else None,
             "updated_by": self.updated_by,
             "updated_at": self.updated_at.isoformat() if self.updated_at else None,
         }

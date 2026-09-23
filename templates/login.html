@@ -25,12 +25,12 @@
     <div class="login-wrap">
       <div class="login-brand">
         <img src="/static/img/icon.svg" alt="Logo">
-        <h1>Checklist Electoral<span>Locales y Mesas · Chulucanas 2026</span></h1>
+        <h1>Control de Actas<span>Checklist y Seguimiento · Chulucanas 2026</span></h1>
       </div>
 
       <form class="login-card" method="post" action="{{ url_for('auth.login') }}" autocomplete="off">
         <h2>Hola, bienvenido</h2>
-        <p>Ingresa con tu usuario para comenzar la verificación.</p>
+        <p>Ingresa con tu usuario para continuar la operación.</p>
 
         {% if error %}
         <div class="login-error">
@@ -62,7 +62,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </button>
 
-        <p class="login-note">Elecciones Generales 2026 · Distrito de Chulucanas</p>
+        <p class="login-note">Elecciones Generales 2026 · Centro de Cómputo de Chulucanas</p>
       </form>
     </div>
   </main>

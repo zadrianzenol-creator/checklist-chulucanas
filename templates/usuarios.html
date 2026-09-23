@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Usuarios · Checklist Electoral Chulucanas 2026{% endblock %}
+{% block title %}Usuarios · Control de Actas{% endblock %}
 {% block heading %}Usuarios{% endblock %}
 {% block subtitle %}Administración de cuentas del sistema{% endblock %}
 {% set stats = none %}
@@ -7,7 +7,7 @@
 
 <div class="card">
   <div class="toolbar">
-    <p class="muted" style="font-size:14px;">Cuentas habilitadas para registrar la verificación de mesas.</p>
+    <p class="muted" style="font-size:14px;">Responsable, digitadores y recepción/custodia.</p>
     <button class="btn btn-sm" type="button" data-open-modal="modal-nuevo" style="margin-left:auto;">
       <svg><use href="/static/img/icons.svg#i-user-plus"></use></svg>
       Nuevo usuario
@@ -20,6 +20,7 @@
         <tr>
           <th>Usuario</th>
           <th>Rol</th>
+          <th>Mesas</th>
           <th>Estado</th>
           <th>Creado</th>
           <th style="text-align:right;">Acciones</th>
@@ -38,6 +39,7 @@
             </div>
           </td>
           <td><span class="badge badge-{{ u.role }}">{{ u.role }}</span></td>
+          <td class="muted" style="font-size:13px;">{{ conteo_mesas.get(u.id, 0) if u.role == 'digitador' else '—' }}</td>
           <td>
             <span class="row" style="gap:10px;">
               <span class="badge {{ 'badge-on' if u.is_active else 'badge-off' }}" data-estado-badge>
@@ -80,11 +82,11 @@
       <svg><use href="/static/img/icons.svg#i-x"></use></svg>
     </button>
     <h3>Nuevo usuario</h3>
-    <p>Crea una cuenta para que otra persona registre la verificación.</p>
+    <p>Crea la cuenta según el rol de trabajo.</p>
     <form method="post" action="{{ url_for('auth.crear_usuario') }}">
       <div class="field">
         <label for="nu-username">Usuario</label>
-        <input class="input" id="nu-username" name="username" type="text" placeholder="ej. personero1" required autofocus data-autofocus>
+        <input class="input" id="nu-username" name="username" type="text" placeholder="ej. dig1" required autofocus data-autofocus>
       </div>
       <div class="field">
         <label for="nu-name">Nombre completo</label>
@@ -98,7 +100,7 @@
         <label for="nu-role">Rol</label>
         <select class="input" id="nu-role" name="role">
           {% for r in roles %}
-          <option value="{{ r }}">{{ r }}</option>
+          <option value="{{ r }}">{{ {'admin':'Responsable / admin','digitador':'Digitador','recepcion':'Recepción / Custodia'}[r] }}</option>
           {% endfor %}
         </select>
       </div>

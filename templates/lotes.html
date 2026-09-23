@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Lotes · Control de Actas{% endblock %}
+{% block heading %}Lotes{% endblock %}
+{% block subtitle %}Movimientos de los lotes entre custodia y control de calidad{% endblock %}
+{% block content %}
+
+<div class="card">
+  <div class="table-wrap">
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th>Lote</th>
+          <th>Estado</th>
+          <th>Digitador</th>
+          <th>Mesas</th>
+          <th>Conformes</th>
+          <th>Observadas</th>
+          <th>Creado</th>
+          <th style="text-align:right;">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for l in lotes %}
+        <tr>
+          <td><b>{{ l.codigo }}</b></td>
+          <td><span class="st-chip st-{{ l.estado|lower }}">{{ l.estado }}</span></td>
+          <td class="muted" style="font-size:13px;">{{ l.digitador.full_name or l.digitador.username if l.digitador else '—' }}</td>
+          <td>{{ l.total_mesas }}</td>
+          <td style="color:#6ee7b7;">{{ l.conformes }}</td>
+          <td style="color:#fb7185;">{{ l.observadas }}</td>
+          <td class="muted mono" style="font-size:12px;">{{ l.creado_en.strftime('%d/%m %H:%M') if l.creado_en else '—' }}</td>
+          <td>
+            <div class="actions-cell right">
+              <button class="btn btn-sm btn-ghost" type="button" data-ver-traza-grupo data-ver-lote="{{ l.id }}">
+                <svg><use href="/static/img/icons.svg#i-eye"></use></svg>
+                Ver lote
+              </button>
+            </div>
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="8">
+          <div class="empty">
+            <svg><use href="/static/img/icons.svg#i-box"></use></svg>
+            <p>Aún no se han creado lotes.</p>
+          </div>
+        </td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="note mt-4">
+  <svg><use href="/static/img/icons.svg#i-lock"></use></svg>
+  El control de calidad se realiza por lotes para no interrumpir la fase digital. Cada movimiento queda registrado con usuario y fecha.
+</div>
+{% endblock %}

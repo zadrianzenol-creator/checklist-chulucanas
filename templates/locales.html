@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-{% block title %}Locales y Mesas · Checklist Electoral Chulucanas 2026{% endblock %}
+{% block title %}Locales y Mesas · Control de Actas{% endblock %}
 {% block heading %}Locales y Mesas{% endblock %}
-{% block subtitle %}Verificación de los {{ stats.total_locales }} locales y {{ stats.total_mesas }} mesas del distrito{% endblock %}
+{% block subtitle %}Los {{ stats.total_locales }} locales y {{ stats.total_mesas }} mesas del distrito{% endblock %}
 {% set stats = stats %}
 
 {% set q = q or '' %}
@@ -21,12 +21,12 @@
     </div>
     <div class="seg" style="margin-left:auto;">
       <span class="chip-stat">
-        <b>{{ stats.verificadas }}/{{ stats.total_mesas }}</b>
-        <span>Verificadas</span>
+        <b>{{ stats.cerradas }}/{{ stats.total_mesas }}</b>
+        <span>Cerradas</span>
       </span>
       <span class="chip-stat">
         <b>{{ stats.avance }}%</b>
-        <span>Avance</span>
+        <span>Archivado</span>
       </span>
     </div>
   </div>
@@ -46,7 +46,7 @@
       <div class="local-card__stats">
         <div><b>{{ l.total_mesas }}</b><span>Mesas</span></div>
         <div><b>{{ "{:,}".format(l.total_electores) }}</b><span>Electores</span></div>
-        <div><b style="color:var(--green)">{{ l.verificadas }}</b><span>Verificadas</span></div>
+        <div><b style="color:#4ade80">{{ l.cerradas }}</b><span>Cerradas</span></div>
       </div>
 
       <div class="local-card__foot">
@@ -58,7 +58,7 @@
 
       <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
         <span class="muted" style="font-size:12.5px;">
-          {{ l.observadas }} observadas · {{ l.pendientes }} pendientes
+          <span style="color:#fb7185;">{{ l.observadas }} observadas</span>
         </span>
         <a class="btn btn-sm btn-card" href="{{ url_for('main.detalle_local', local_id=l.id) }}">
           Ver mesas

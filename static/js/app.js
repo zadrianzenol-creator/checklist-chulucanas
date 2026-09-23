@@ -41,6 +41,51 @@
       const m = $(`#${id}`);
       if (m) m.classList.remove("open");
     },
+    slug(estado) {
+      return estado.toLowerCase().replace(/ó/g, "o").replace(/á/g, "a").replace(/\s+/g, "-");
+    },
+    helperRecarga() {
+      // Las vistas por bandejas/lotes reorganizan grupos; recarga limpia
+      const p = location.pathname;
+      return p.includes("/bandeja") || p.includes("/recepcion") || p.includes("/lotes");
+    },
+    async postJSON(url, body = {}) {
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      const data = await res.json();
+      if (!data.ok) throw new Error(data.error || "No se pudo completar la operación.");
+      return data;
+    },
+    async transicionar(mesaId, estado, observacion = "") {
+      if (this.helperRecarga()) {
+        await this.postJSON(`/api/mesas/${mesaId}/transicion`, { estado, observacion });
+        this.toast(`Mesa actualizada correctamente`);
+        setTimeout(() => location.reload(), 600);
+        return;
+      }
+      try {
+        const data = await this.postJSON(`/api/mesas/${mesaId}/transicion`, { estado, observacion });
+        const card = $(`[data-mesa-card][data-mesa-id="${mesaId}"]`);
+        if (card) {
+          card.dataset.estado = estado;
+          const chip = card.querySelector("[data-chip]");
+          if (chip) chip.className = `st-chip st-${this.slug(estado)}`;
+          const acc = card.querySelector("[data-mesa-acciones]");
+          if (acc) acc.classList.add("done");
+        }
+        if (estado === "OBSERVADA") {
+          const ot = card ? card.querySelector("[data-obs-text]") : null;
+          if (ot) ot.textContent = "Observación: " + observacion;
+        }
+        this.toast(`Mesa ${data.mesa ? "→ " + estado : ""}`);
+        setTimeout(() => location.reload(), 900);
+      } catch (err) {
+        this.toast(err.message, "error");
+      }
+    },
   };
 
   document.addEventListener("DOMContentLoaded", () => {
@@ -53,64 +98,49 @@
     if (burger && sidebar) {
       burger.addEventListener("click", () => sidebar.classList.toggle("open"));
       document.addEventListener("click", (e) => {
-        if (
-          sidebar.classList.contains("open") &&
-          !sidebar.contains(e.target) &&
-          !burger.contains(e.target)
-        ) {
+        if (sidebar.classList.contains("open") && !sidebar.contains(e.target) && !burger.contains(e.target)) {
           sidebar.classList.remove("open");
         }
       });
     }
 
-    // ---------- Modales genéricos ----------
-    $$("[data-open-modal]").forEach((btn) => {
-      btn.addEventListener("click", () => App.openModal(btn.dataset.openModal));
-    });
-    $$("[data-close-modal]").forEach((btn) => {
-      btn.addEventListener("click", () => App.closeModal(btn.dataset.closeModal));
-    });
+    // ---------- Modales ----------
+    $$("[data-open-modal]").forEach((btn) => btn.addEventListener("click", () => App.openModal(btn.dataset.openModal)));
+    $$("[data-close-modal]").forEach((btn) => btn.addEventListener("click", () => App.closeModal(btn.dataset.closeModal)));
     $$(".modal-overlay").forEach((ov) => {
       ov.addEventListener("click", (e) => {
         if (e.target === ov) ov.classList.remove("open");
       });
     });
 
-    // ---------- Efecto 3D tilt en tarjetas ----------
-    if (window.matchMedia("(min-width: 961px)").matches) {
-      const isCoarse = navigator.maxTouchPoints > 0;
-      if (!isCoarse) {
-        $$(".tilt").forEach((card) => {
-          card.addEventListener("pointermove", (e) => {
-            const r = card.getBoundingClientRect();
-            const px = (e.clientX - r.left) / r.width - 0.5;
-            const py = (e.clientY - r.top) / r.height - 0.5;
-            card.style.transform = `perspective(900px) rotateX(${-py * 7}deg) rotateY(${px * 9}deg) translateY(-2px)`;
-          });
-          card.addEventListener("pointerleave", () => {
-            card.style.transform = "";
-          });
+    // ---------- Tilt 3D ----------
+    if (window.matchMedia("(min-width: 961px)").matches && navigator.maxTouchPoints === 0) {
+      $$(".tilt").forEach((card) => {
+        card.addEventListener("pointermove", (e) => {
+          const r = card.getBoundingClientRect();
+          const px = (e.clientX - r.left) / r.width - 0.5;
+          const py = (e.clientY - r.top) / r.height - 0.5;
+          card.style.transform = `perspective(900px) rotateX(${-py * 7}deg) rotateY(${px * 9}deg) translateY(-2px)`;
         });
-      }
+        card.addEventListener("pointerleave", () => (card.style.transform = ""));
+      });
     }
 
     // ---------- Filtros de grillas ----------
     $$("[data-filter-group]").forEach((group) => {
       const seg = group.querySelector("[data-filter-seg]");
-      const cards = group.querySelectorAll("[data-estado]");
-
+      const cards = group.querySelectorAll("[data-mesa-card]");
       const apply = () => {
         const value = seg ? seg.dataset.filterValue : "all";
+        const q = (group.dataset.searchValue || "").toLowerCase();
         cards.forEach((c) => {
           const est = (c.dataset.estado || "PENDIENTE").toUpperCase();
-          const q = (group.dataset.searchValue || "").toLowerCase();
           const haystack = (c.dataset.searchText || "").toLowerCase();
           const matchEstado = value === "all" || est === value;
           const matchQ = !q || haystack.includes(q);
           c.classList.toggle("is-hidden", !(matchEstado && matchQ));
         });
       };
-
       if (seg) {
         $$("button", seg).forEach((b) => {
           b.addEventListener("click", () => {
@@ -121,7 +151,6 @@
           });
         });
       }
-
       if (group.matches("[data-search-group]")) {
         group.addEventListener("input", (e) => {
           if (e.target.matches("[data-search-input]")) {
@@ -132,176 +161,244 @@
       }
     });
 
-    // ---------- Marcado de mesas ----------
-    $$("[data-mesa-acciones]").forEach((group) => {
-      group.addEventListener("click", (e) => {
-        const btn = e.target.closest("[data-set-estado]");
-        if (!btn) return;
-        const mesaId = btn.dataset.mesaId;
-        const estado = btn.dataset.setEstado.toUpperCase();
-        const card = group.closest("[data-mesa-card]");
-
-        if (estado === "OBSERVADO") {
-          const obs = card.querySelector("[data-obs-target]");
-          document.dispatchEvent(new CustomEvent("app:observar", { detail: { mesaId, nombre: card.dataset.mesaLabel, obs } }));
-          return;
-        }
-        App.setMesaEstado(mesaId, estado, "");
+    // ---------- Búsqueda simple en tablas ----------
+    $$("[data-search-group]").forEach((group) => {
+      const input = group.querySelector("[data-search-input]");
+      if (!input) return;
+      input.addEventListener("input", () => {
+        const q = input.value.toLowerCase();
+        $$("[data-row-search]", group).forEach((row) => {
+          row.classList.toggle("is-hidden", !(row.dataset.searchText || "").toLowerCase().includes(q));
+        });
       });
     });
 
-    App.setMesaEstado = async (mesaId, estado, observacion) => {
-      try {
-        const res = await fetch(`/api/mesas/${mesaId}/estado`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ estado, observacion }),
-        });
-        const data = await res.json();
-        if (!data.ok) throw new Error(data.error || "Error al actualizar");
-
-        const card = $(`[data-mesa-card][data-mesa-id="${mesaId}"]`);
-        if (card) {
-          card.dataset.estado = estado;
-          const badge = card.querySelector("[data-estado-badge]");
-          if (badge) {
-            badge.className = `badge badge-${estado.toLowerCase().replace("ó", "o")}`;
-            badge.innerHTML = App.estadoBadgeHtml(estado, data.mesa ? data.mesa.observacion : observacion);
-          }
-          const obs = card.querySelector("[data-obs-text]");
-          if (obs) {
-            obs.classList.toggle("hide", estado !== "OBSERVADO" || !(data.mesa ? data.mesa.observacion : observacion));
-            obs.textContent = data.mesa && data.mesa.observacion ? `<i class="mb-2"></i>` : "";
-          }
-          if (estado === "OBSERVADO" && data.mesa && data.mesa.observacion) {
-            const ot = card.querySelector("[data-obs-text]");
-            ot.innerText = "Observación: " + data.mesa.observacion;
-          }
-        }
-        App.actualizarContadores();
-        App.toast(`Mesa ${card ? card.dataset.mesaLabel : mesaId} → ${estado}`, "success");
-      } catch (err) {
-        App.toast(err.message, "error");
-      }
-    };
-
-    App.estadoBadgeHtml = (estado) => {
-      const icons = {
-        VERIFICADA: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>',
-        OBSERVADO: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/></svg>',
-        PENDIENTE: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',
-      };
-      return `${icons[estado] || ""}<span>${estado}</span>`;
-    };
-
-    App.actualizarContadores = () => {
-      // Consumo desde el DOM por tarjetas de mesa del mismo grupo
-      $$("[data-local-stats]").forEach((box) => {
-        const scope = box.dataset.localStats;
-        const cards = scope === "all"
-          ? $$("[data-mesa-card]")
-          : $$(`[data-mesa-card][data-local-id="${scope}"]`);
-        const count = (est) => cards.filter((c) => (c.dataset.estado || "PENDIENTE").toUpperCase() === est).length;
-        const v = box.querySelector("[data-c-verificadas]");
-        const o = box.querySelector("[data-c-observado]");
-        const p = box.querySelector("[data-c-pendiente]");
-        if (v) v.textContent = count("VERIFICADA");
-        if (o) o.textContent = count("OBSERVADO");
-        if (p) p.textContent = count("PENDIENTE");
-        const total = cards.length;
-        const av = total ? Math.round((count("VERIFICADA") / total) * 100) : 0;
-        const bar = box.querySelector("[data-c-avance] span, [data-c-avance] i");
-        const pct = box.querySelector("[data-c-pct], [data-c-avance]");
-        if (bar && bar.style) {
-          bar.style.width = av + "%";
-          const num = box.querySelector("[data-c-pct]");
-          if (num) num.textContent = av + "%";
-        }
+    // ---------- Transiciones de estado ----------
+    $$("[data-trans]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const mesaId = btn.dataset.trans;
+        const estado = btn.dataset.estado;
+        if (!mesaId || !estado) return;
+        if (btn.disabled) return;
+        btn.disabled = true;
+        App.transicionar(mesaId, estado);
       });
-    };
+    });
 
     // ---------- Observar mesa ----------
     const obsModal = $("#modal-observar");
-    document.addEventListener("app:observar", (e) => {
+    const abrirObservar = (mesaId, nombre) => {
       if (!obsModal) return;
-      const { mesaId } = e.detail;
       obsModal.dataset.mesaId = mesaId;
       const n = obsModal.querySelector("[data-obs-nombre]");
-      if (n) n.textContent = `Mesa ${e.detail.nombre || mesaId}`;
-      const ta = obsModal.querySelector("[data-obs-input]");
-      if (ta) ta.value = e.detail.obs ? e.detail.obs.textContent.replace("Observación: ", "") : "";
+      if (n) n.textContent = nombre || `Mesa ${mesaId}`;
+      const ta = obsModal.querySelector("textarea");
+      if (ta) ta.value = "";
       App.openModal("modal-observar");
+      setTimeout(() => { if (ta) ta.focus(); }, 80);
+    };
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-observar]");
+      if (btn) {
+        const card = btn.closest("[data-mesa-card]");
+        abrirObservar(btn.dataset.observar, card ? card.dataset.mesaLabel : "");
+      }
     });
     const obsBtn = $("#btn-observar-confirmar");
     if (obsBtn && obsModal) {
-      obsBtn.addEventListener("click", () => {
+      obsBtn.addEventListener("click", async () => {
         const mesaId = obsModal.dataset.mesaId;
-        const text = ($("[data-obs-input]", obsModal) || {}).value || "";
-        App.setMesaEstado(mesaId, "OBSERVADO", text.trim());
+        const ta = obsModal.querySelector("textarea");
+        const text = (ta && ta.value || "").trim();
         App.closeModal("modal-observar");
+        await App.transicionar(mesaId, "OBSERVADA", text);
       });
     }
 
-    // ---------- Reset contraseña ----------
-    $$("[data-reset-user]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const id = btn.dataset.resetUser;
-        const modal = $("#modal-reset");
-        if (!modal) return;
-        modal.dataset.userId = id;
-        const n = modal.querySelector("[data-reset-nombre]");
-        if (n) n.textContent = btn.dataset.resetNombre || "";
-        App.openModal("modal-reset");
+    // ---------- Asignación de mesas (admin) ----------
+    $$("[data-asignar-select]").forEach((sel) => {
+      let antes = sel.value;
+      sel.addEventListener("change", async () => {
+        const mesaId = sel.dataset.asignarSelect;
+        const digId = sel.value || null;
+        try {
+          const data = await App.postJSON(`/api/mesas/${mesaId}/asignar`, { digitador_id: digId });
+          antes = sel.value;
+          App.toast(data.digitador ? `Mesa asignada a ${data.digitador}` : "Mesa sin digitador");
+        } catch (err) {
+          sel.value = antes;
+          App.toast(err.message, "error");
+        }
       });
     });
-    const resetBtn = $("#btn-reset-confirmar");
-    if (resetBtn) {
-      resetBtn.addEventListener("click", async () => {
-        const modal = $("#modal-reset");
-        const id = modal.dataset.userId;
-        const pass = ($("[data-reset-input]", modal) || {}).value || "";
-        try {
-          const res = await fetch(`/usuarios/${id}/reset`, {
-            method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: new URLSearchParams({ password: pass }),
-          });
-          const data = await res.json();
-          if (!data.ok) throw new Error(data.error || "No se pudo actualizar");
-          App.closeModal("modal-reset");
-          App.toast(data.message || "Contraseña actualizada", "success");
-          ($("[data-reset-input]", modal) || {}).value = "";
-        } catch (err) {
-          App.toast(err.message, "error");
-        }
-      });
+
+    // Asignación masiva
+    const asignarBar = $("[data-asignar-bar]");
+    if (asignarBar) {
+      const dig = asignarBar.querySelector("#asignar-dig");
+      const btn = asignarBar.querySelector("[data-asignar-bulk]");
+      const refresh = () => {
+        if (btn) btn.disabled = $$("[data-asignar-pick]:checked").length === 0;
+      };
+      $$("[data-asignar-pick]").forEach((cb) => cb.addEventListener("change", refresh));
+      if (btn) {
+        btn.addEventListener("click", async () => {
+          const ids = $$("[data-asignar-pick]:checked").map((cb) => cb.dataset.asignarPick);
+          if (!ids.length) return App.toast("Selecciona al menos una mesa.", "error");
+          if (!dig.value) return App.toast("Elige un digitador para asignar.", "error");
+          btn.disabled = true;
+          let ok = 0;
+          try {
+            for (const id of ids) {
+              await App.postJSON(`/api/mesas/${id}/asignar`, { digitador_id: dig.value });
+              ok++;
+            }
+            App.toast(`${ok} mesa(s) asignada(s)`);
+            setTimeout(() => location.reload(), 700);
+          } catch (err) {
+            App.toast(err.message, "error");
+          } finally {
+            btn.disabled = false;
+          }
+        });
+      }
     }
 
-    // ---------- Toggle usuarios ----------
-    $$("[data-toggle-user]").forEach((sw) => {
-      sw.addEventListener("change", async () => {
-        const id = sw.dataset.toggleUser;
-        const checked = sw.checked;
+    // ---------- Recepción: acciones masivas ----------
+    $$("[data-accion-bulk]").forEach((btn) => {
+      const grupo = btn.closest("[data-select-group]") || document;
+      const tipo = btn.dataset.tipo;
+      const refresh = () => {
+        const n = $$(`.ck[data-pick="${tipo}"]:checked`, grupo).length;
+        btn.disabled = n === 0;
+      };
+      $$(`.ck[data-pick="${tipo}"]`, grupo).forEach((cb) => cb.addEventListener("change", refresh));
+      refresh();
+
+      btn.addEventListener("click", async () => {
+        const ids = $$(`.ck[data-pick="${tipo}"]:checked`, grupo).map((cb) => cb.dataset.mesaId);
+        if (!ids.length) return;
+        btn.disabled = true;
         try {
-          const res = await fetch(`/usuarios/${id}/toggle`, { method: "POST" });
-          const data = await res.json();
-          if (!data.ok) {
-            sw.checked = !checked;
-            throw new Error(data.error || "No se pudo cambiar el estado");
+          if (tipo === "lote") {
+            const data = await App.postJSON("/api/lotes/crear", { mesa_ids: ids });
+            App.toast(`${data.lote.codigo} creado con ${ids.length} mesas`);
+          } else if (tipo === "llegada") {
+            for (const id of ids) await App.postJSON(`/api/mesas/${id}/llegada`);
+            App.toast(`${ids.length} acta(s) en pendiente de control`);
+          } else if (tipo === "archivo") {
+            for (const id of ids) await App.postJSON(`/api/mesas/${id}/archivar`);
+            App.toast(`${ids.length} mesa(s) archivadas y cerradas`);
           }
-          App.toast(data.is_active ? "Usuario activado" : "Usuario desactivado", "success");
-          const row = sw.closest("tr");
-          if (row) {
-            const badge = row.querySelector("[data-estado-badge]");
-            if (badge) {
-              badge.className = `badge ${data.is_active ? "badge-on" : "badge-off"}`;
-              badge.innerHTML = `<span>${data.is_active ? "Activo" : "Inactivo"}</span>`;
-            }
-          }
+          setTimeout(() => location.reload(), 600);
         } catch (err) {
           App.toast(err.message, "error");
+          btn.disabled = false;
         }
       });
+    });
+
+    // ---------- Lotes: entregar / recibir / archivar ----------
+    $$("[data-entregar-lote]").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const id = btn.dataset.entregarLote;
+        const sel = btn.closest("[data-lote]") ? btn.closest("[data-lote]").querySelector("[data-lote-dig]") : $("#lote-dig");
+        const digId = sel ? sel.value : "";
+        if (!digId) return App.toast("Elige un digitador para el lote.", "error");
+        btn.disabled = true;
+        try {
+          const data = await App.postJSON(`/api/lotes/${id}/entregar`, { digitador_id: digId });
+          App.toast(`${data.lote.codigo} entregado para control de calidad`);
+          setTimeout(() => location.reload(), 600);
+        } catch (err) {
+          App.toast(err.message, "error");
+          btn.disabled = false;
+        }
+      });
+    });
+    $$("[data-recibir-lote]").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const id = btn.dataset.recibirLote;
+        btn.disabled = true;
+        try {
+          await App.postJSON(`/api/lotes/${id}/recibir`);
+          App.toast("Lote devuelto a custodia");
+          setTimeout(() => location.reload(), 600);
+        } catch (err) {
+          App.toast(err.message, "error");
+          btn.disabled = false;
+        }
+      });
+    });
+    $$("[data-archivar-lote]").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const id = btn.dataset.archivarLote;
+        btn.disabled = true;
+        try {
+          const data = await App.postJSON(`/api/lotes/${id}/archivar`);
+          App.toast(`${data.cuenta} mesa(s) archivadas del lote`);
+          setTimeout(() => location.reload(), 600);
+        } catch (err) {
+          App.toast(err.message, "error");
+          btn.disabled = false;
+        }
+      });
+    });
+    $$("[data-ver-lote]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        location.href = `/lotes/${btn.dataset.verLote}`;
+      });
+    });
+
+    // ---------- Trazabilidad ----------
+    const trazaModal = $("#modal-traza");
+    const abrirTraza = async (mesaId, nombre) => {
+      if (!trazaModal) return;
+      const nom = trazaModal.querySelector("[data-traza-nombre]");
+      if (nom) nom.textContent = nombre || `Mesa ${mesaId}`;
+      const ev = trazaModal.querySelector("[data-traza-eventos]");
+      const obs = trazaModal.querySelector("#obs-historial");
+      if (ev) ev.innerHTML = '<div class="t-line-loading">Cargando historial…</div>';
+      if (obs) obs.innerHTML = "";
+      App.openModal("modal-traza");
+      try {
+        const res = await fetch(`/api/mesas/${mesaId}/trazabilidad`);
+        const data = await res.json();
+        if (!data.ok) throw new Error("Error al leer la trazabilidad");
+        if (ev) {
+          ev.innerHTML = data.eventos.length
+            ? data.eventos.map((e) => `
+                <div class="tl-item">
+                  <i class="tl-dot"></i>
+                  <div class="tl-body">
+                    <p>${e.detalle}</p>
+                    <span>${e.usuario} · ${App.formatoFecha(e.fecha)}</span>
+                  </div>
+                </div>`).join("")
+            : '<div class="tl-empty">Sin movimientos registrados.</div>';
+        }
+        if (obs) {
+          obs.innerHTML = data.observaciones.length
+            ? data.observaciones.map((o) => `
+                <div class="obs-card ${o.resuelta ? "resuelta" : ""}">
+                  <div class="obs-card__head">
+                    <span class="badge ${o.resuelta ? "badge-on" : "badge-danger"}">${o.resuelta ? "Resuelta" : "Pendiente"}</span>
+                    <span class="muted mono" style="font-size:11px;">${o.autor || "—"} · ${App.formatoFecha(o.fecha)}</span>
+                  </div>
+                  <p>${o.detalle}</p>
+                </div>`).join("")
+            : '<div class="tl-empty">Sin observaciones.</div>';
+        }
+      } catch (err) {
+        if (ev) ev.innerHTML = "";
+        App.toast(err.message, "error");
+      }
+    };
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-ver-traza]");
+      if (!btn) return;
+      const card = btn.closest("[data-mesa-card]");
+      abrirTraza(btn.dataset.verTraza, card ? card.dataset.mesaLabel : "");
     });
 
     // ---------- Ánillos de progreso ----------
@@ -313,109 +410,19 @@
       if (bar) {
         bar.style.strokeDasharray = circ;
         bar.style.strokeDashoffset = circ - (circ * val) / 100;
-        setTimeout(() => {
-          bar.style.strokeDashoffset = circ - (circ * val) / 100;
-        }, 60);
       }
       const num = ring.querySelector("[data-ring-num]");
       if (num) num.textContent = val + "%";
     });
-
-    // ---------- Gráficos ----------
-    const donutData = $("#chart-donut-data");
-    if (donutData && window.Chart) {
-      try {
-        const d = JSON.parse(donutData.textContent);
-        const ctx = donutData.parentElement.querySelector("canvas");
-        const colors = ["#fbbf24", "#34d399", "#f87171"];
-        new Chart(ctx, {
-          type: "doughnut",
-          data: {
-            labels: ["Pendientes", "Verificadas", "Observadas"],
-            datasets: [{
-              data: [d.pendientes, d.verificadas, d.observadas],
-              backgroundColor: colors,
-              borderWidth: 0,
-              hoverOffset: 8,
-            }],
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            cutout: "72%",
-            plugins: {
-              legend: { display: false },
-              tooltip: {
-                backgroundColor: "rgba(15,20,40,.95)",
-                borderColor: "rgba(255,255,255,.12)",
-                borderWidth: 1,
-                padding: 12,
-                bodyFont: { family: "Inter" },
-                titleFont: { family: "Inter" },
-              },
-            },
-          },
-        });
-      } catch (e) { /* ignore */ }
-    }
-
-    const barData = $("#chart-bar-data");
-    if (barData && window.Chart) {
-      try {
-        const d = JSON.parse(barData.textContent);
-        const ctx = barData.parentElement.querySelector("canvas");
-        const top = d.slice().sort((a, b) => b.total - a.total).slice(0, 10);
-        new Chart(ctx, {
-          type: "bar",
-          data: {
-            labels: top.map((x) => `${x.nombre.slice(0, 16)}${x.nombre.length > 16 ? "…" : ""}`),
-            datasets: [
-              {
-                label: "Verificadas",
-                data: top.map((x) => x.verificadas),
-                backgroundColor: "#34d399",
-                borderRadius: 6,
-                stack: "s1",
-              },
-              {
-                label: "Observadas",
-                data: top.map((x) => x.observadas),
-                backgroundColor: "#f87171",
-                borderRadius: 6,
-                stack: "s1",
-              },
-              {
-                label: "Pendientes",
-                data: top.map((x) => x.pendientes),
-                backgroundColor: "#fbbf24",
-                borderRadius: 6,
-                stack: "s1",
-              },
-            ],
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-              x: {
-                grid: { color: "rgba(255,255,255,.04)" },
-                ticks: { color: "#94a0c4", font: { family: "Inter", size: 10 } },
-              },
-              y: {
-                grid: { color: "rgba(255,255,255,.04)" },
-                ticks: { color: "#94a0c4", font: { family: "Inter", size: 11 } },
-              },
-            },
-            plugins: {
-              legend: { labels: { color: "#94a0c4", font: { family: "Inter", size: 12 }, usePointStyle: true, pointStyle: "circle" } },
-              tooltip: { backgroundColor: "rgba(15,20,40,.95)", borderWidth: 1, borderColor: "rgba(255,255,255,.12)" },
-            },
-          },
-        });
-      } catch (e) { /* ignore */ }
-    }
-
-    // Valores iniciales contadores (por si no hay AJAX)
-    App.actualizarContadores();
   });
+
+  window.ListApp.formatoFecha = (iso) => {
+    if (!iso) return "—";
+    const d = new Date(iso);
+    if (isNaN(d)) return iso;
+    return d.toLocaleString("es-PE", {
+      day: "2-digit", month: "2-digit", year: "2-digit",
+      hour: "2-digit", minute: "2-digit",
+    });
+  };
 })();

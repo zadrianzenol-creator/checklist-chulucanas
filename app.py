@@ -7,9 +7,46 @@ from flask_login import LoginManager, current_user
 
 from config import Config
 from database import db, init_db
-from models.user import User
+from models import Local, Mesa, User  # noqa: F401  (registra modelos)
 from routes.auth_routes import auth_bp
 from routes.main_routes import main_bp
+
+# Permitidos según rol (además de login/logout/static/ping)
+PERMITIDOS_DIGITADOR = {
+    "auth.login",
+    "auth.logout",
+    "main.index",
+    "main.bandeja",
+    "main.locales",
+    "main.detalle_local",
+    "main.api_transicion",
+    "main.api_trazabilidad",
+    "main.api_lotes_recibir",
+    "main.api_stats",
+    "main.ping",
+    "static",
+}
+
+PERMITIDOS_RECEPCION = {
+    "auth.login",
+    "auth.logout",
+    "main.index",
+    "main.recepcion",
+    "main.lotes",
+    "main.detalle_lote",
+    "main.locales",
+    "main.detalle_local",
+    "main.api_llegada",
+    "main.api_archivar",
+    "main.api_lotes_crear",
+    "main.api_lotes_entregar",
+    "main.api_lotes_recibir",
+    "main.api_lotes_archivar",
+    "main.api_trazabilidad",
+    "main.api_stats",
+    "main.ping",
+    "static",
+}
 
 
 def create_app():
@@ -30,21 +67,8 @@ def create_app():
     app.register_blueprint(auth_bp)
     app.register_blueprint(main_bp)
 
-    ENDPOINTS_PERMITIDOS_OPERADOR = {
-        "auth.login",
-        "auth.logout",
-        "main.dashboard",
-        "main.locales",
-        "main.detalle_local",
-        "main.api_set_estado",
-        "main.api_stats",
-        "main.ping",
-        "static",
-    }
-
     @app.before_request
     def reglas_globales():
-        # Actualiza el registro de actividad del usuario autenticado
         if current_user.is_authenticated:
             try:
                 current_user.last_active = db.func.now()
@@ -52,11 +76,12 @@ def create_app():
             except Exception:
                 db.session.rollback()
 
-        # Restricción de roles: operador solo puede ver y marcar mesas
-        if current_user.is_authenticated and current_user.role == "operador":
-            endpoint = request.endpoint
-            if endpoint and endpoint not in ENDPOINTS_PERMITIDOS_OPERADOR:
-                abort(403)
+            if current_user.role == "digitador":
+                if request.endpoint and request.endpoint not in PERMITIDOS_DIGITADOR:
+                    abort(403)
+            elif current_user.role == "recepcion":
+                if request.endpoint and request.endpoint not in PERMITIDOS_RECEPCION:
+                    abort(403)
 
     @app.errorhandler(404)
     def not_found(e):
@@ -92,8 +117,6 @@ def create_app():
 
 
 def seed_from_json():
-    from models.local import Local, Mesa
-
     if Local.query.first() is not None:
         return
 
@@ -162,5 +185,5 @@ with app.app_context():
     seed_admin()
 
 if __name__ == "__main__":
-    print(">> Checklist Electoral Chulucanas 2026: http://localhost:5050")
+    print(">> Control de Actas Chulucanas 2026: http://localhost:5050")
     app.run(debug=True, host="0.0.0.0", port=5050)

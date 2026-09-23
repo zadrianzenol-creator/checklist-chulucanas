@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#05070f">
-  <meta name="description" content="Verificación de locales y mesas de votación - Chulucanas 2026">
+  <meta name="description" content="Checklist, control y seguimiento de actas electorales - Chulucanas 2026">
   <link rel="manifest" href="/static/manifest.json">
   <link rel="icon" type="image/svg+xml" href="/static/img/icon.svg">
-  <title>{% block title %}Checklist Electoral Chulucanas 2026{% endblock %}</title>
+  <title>{% block title %}Control de Actas · Chulucanas 2026{% endblock %}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
@@ -33,30 +33,66 @@
 
   <div class="app">
     <aside class="sidebar" id="sidebar">
-      <a class="sidebar__brand" href="{{ url_for('main.dashboard') }}">
+      <a class="sidebar__brand" href="{{ url_for('main.index') }}">
         <img src="/static/img/icon.svg" alt="Logo">
         <div>
-          <b>Checklist Electoral</b>
+          <b>Control de Actas</b>
           <span>Chulucanas · 2026</span>
         </div>
       </a>
 
       <nav class="sidebar__nav">
-        <div class="nav-section">Principal</div>
+        {% if current_user.is_admin %}
+        <div class="nav-section">General</div>
         <a class="nav-link {{ 'active' if active == 'dashboard' else '' }}" href="{{ url_for('main.dashboard') }}">
           <svg><use href="/static/img/icons.svg#i-dash"></use></svg>
           Dashboard
         </a>
+        <div class="nav-section">Operación</div>
+        <a class="nav-link {{ 'active' if active == 'bandeja' else '' }}" href="{{ url_for('main.bandeja') }}?dig={{ current_user.id }}">
+          <svg><use href="/static/img/icons.svg#i-tray"></use></svg>
+          Bandeja
+        </a>
+        <a class="nav-link {{ 'active' if active == 'recepcion' else '' }}" href="{{ url_for('main.recepcion') }}">
+          <svg><use href="/static/img/icons.svg#i-inbox"></use></svg>
+          Recepción y Custodia
+        </a>
+        <a class="nav-link {{ 'active' if active == 'lotes' else '' }}" href="{{ url_for('main.lotes') }}">
+          <svg><use href="/static/img/icons.svg#i-box"></use></svg>
+          Lotes
+        </a>
         <a class="nav-link {{ 'active' if active == 'locales' else '' }}" href="{{ url_for('main.locales') }}">
           <svg><use href="/static/img/icons.svg#i-map"></use></svg>
           Locales y Mesas
-          <span class="badge-count" data-sidebar-mesas>{{ stats.total_mesas if stats else "" }}</span>
         </a>
-        {% if current_user.is_admin %}
         <div class="nav-section">Administración</div>
         <a class="nav-link {{ 'active' if active == 'usuarios' else '' }}" href="{{ url_for('auth.usuarios') }}">
           <svg><use href="/static/img/icons.svg#i-users"></use></svg>
           Usuarios
+        </a>
+        {% elif current_user.es_digitador %}
+        <div class="nav-section">Operación</div>
+        <a class="nav-link {{ 'active' if active == 'bandeja' else '' }}" href="{{ url_for('main.bandeja') }}">
+          <svg><use href="/static/img/icons.svg#i-tray"></use></svg>
+          Mi bandeja
+        </a>
+        <a class="nav-link {{ 'active' if active == 'locales' else '' }}" href="{{ url_for('main.locales') }}">
+          <svg><use href="/static/img/icons.svg#i-map"></use></svg>
+          Locales y Mesas
+        </a>
+        {% elif current_user.es_recepcion %}
+        <div class="nav-section">Operación</div>
+        <a class="nav-link {{ 'active' if active == 'recepcion' else '' }}" href="{{ url_for('main.recepcion') }}">
+          <svg><use href="/static/img/icons.svg#i-inbox"></use></svg>
+          Recepción y Custodia
+        </a>
+        <a class="nav-link {{ 'active' if active == 'lotes' else '' }}" href="{{ url_for('main.lotes') }}">
+          <svg><use href="/static/img/icons.svg#i-box"></use></svg>
+          Lotes
+        </a>
+        <a class="nav-link {{ 'active' if active == 'locales' else '' }}" href="{{ url_for('main.locales') }}">
+          <svg><use href="/static/img/icons.svg#i-map"></use></svg>
+          Locales y Mesas
         </a>
         {% endif %}
       </nav>
@@ -79,7 +115,7 @@
           <svg><use href="/static/img/icons.svg#i-menu"></use></svg>
         </button>
         <div>
-          <h2>{% block heading %}Checklist Electoral{% endblock %}</h2>
+          <h2>{% block heading %}Control de Actas{% endblock %}</h2>
           <p class="sub">{% block subtitle %}{% endblock %}</p>
         </div>
         <div class="topbar__right">

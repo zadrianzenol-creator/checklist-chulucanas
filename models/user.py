@@ -2,6 +2,8 @@ from flask_login import UserMixin
 
 from database import db
 
+ROLES = ("admin", "digitador", "recepcion")
+
 
 class User(UserMixin, db.Model):
     __tablename__ = "users"
@@ -10,7 +12,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(80), unique=True, nullable=False, index=True)
     password_hash = db.Column(db.String(256), nullable=False)
     full_name = db.Column(db.String(160), default="")
-    role = db.Column(db.String(20), default="operador")
+    role = db.Column(db.String(20), default="digitador")
     is_active = db.Column(db.Boolean, default=True)
     created_at = db.Column(db.DateTime, default=db.func.now())
     last_active = db.Column(db.DateTime)
@@ -31,6 +33,14 @@ class User(UserMixin, db.Model):
     @property
     def is_admin(self):
         return self.role == "admin"
+
+    @property
+    def es_digitador(self):
+        return self.role == "digitador"
+
+    @property
+    def es_recepcion(self):
+        return self.role == "recepcion"
 
     def to_dict(self):
         return {

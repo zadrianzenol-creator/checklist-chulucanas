@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}{{ local.nombre }} · Checklist Electoral Chulucanas 2026{% endblock %}
+{% block title %}{{ local.nombre }} · Control de Actas{% endblock %}
 {% block heading %}{{ local.nombre }}{% endblock %}
 {% block subtitle %}Local de votación LV {{ local.codigo }} · {{ local.ubicacion }}{% endblock %}
 {% set stats = stats %}
@@ -30,22 +30,21 @@
         <svg><use href="/static/img/icons.svg#i-building"></use></svg>
         LV {{ local.codigo }} · {{ local.ubicacion }} · {{ local.numero_ca or '—' }} mesas de la circunscripción
       </div>
-      <div class="panel-chips" data-local-stats="{{ local.id }}">
-        <div class="chip-stat"><b data-c-verificadas>{{ local.verificadas }}</b><span style="color:var(--green)">Verificadas</span></div>
-        <div class="chip-stat"><b data-c-pendiente>{{ local.pendientes }}</b><span style="color:var(--amber)">Pendientes</span></div>
-        <div class="chip-stat"><b data-c-observado>{{ local.observadas }}</b><span style="color:var(--red)">Observadas</span></div>
+      <div class="panel-chips">
+        <div class="chip-stat"><b style="color:#4ade80;">{{ local.cerradas }}</b><span>Cerradas</span></div>
+        <div class="chip-stat"><b style="color:#fb7185;">{{ local.observadas }}</b><span>Observadas</span></div>
         <div class="chip-stat"><b>{{ local.total_electores }}</b><span>Electores</span></div>
       </div>
     </div>
 
     <div style="min-width:200px; flex:1;">
       <div class="row spread mb-2">
-        <span class="muted" style="font-size:12.5px;">Avance del local</span>
-        <span class="mono" data-c-pct style="font-weight:700;">{{ local.avance }}%</span>
+        <span class="muted" style="font-size:12.5px;">Archivo del local</span>
+        <span class="mono" style="font-weight:700;">{{ local.avance }}%</span>
       </div>
-      <div class="progress" data-c-avance><i style="width:{{ local.avance }}%"></i></div>
+      <div class="progress"><i style="width:{{ local.avance }}%"></i></div>
       <p class="muted mt-2" style="font-size:12.5px;">
-        {{ local.total_mesas }} mesas de sufragio · haz clic en un estado para registrar cada mesa.
+        {{ local.total_mesas }} mesas de sufragio. Avanza cada etapa según el rol.
       </p>
     </div>
   </div>
@@ -60,30 +59,46 @@
     <div class="seg" data-filter-seg>
       <button type="button" class="on" data-filter="all">Todas · {{ local.total_mesas }}</button>
       <button type="button" data-filter="PENDIENTE">Pendientes</button>
-      <button type="button" data-filter="VERIFICADA">Verificadas</button>
-      <button type="button" data-filter="OBSERVADO">Observadas</button>
+      <button type="button" data-filter="FOTO RECIBIDA">Foto</button>
+      <button type="button" data-filter="EN REGISTRO">Registro</button>
+      <button type="button" data-filter="REGISTRADA">Registrada</button>
+      <button type="button" data-filter="PENDIENTE DE CONTROL">Control</button>
+      <button type="button" data-filter="CONFORME">Conforme</button>
+      <button type="button" data-filter="OBSERVADA">Observadas</button>
+      <button type="button" data-filter="CERRADA">Cerradas</button>
     </div>
+
+    {% if current_user.is_admin %}
+    <div class="asignar-bar" data-asignar-bar>
+      <select class="input input-select" id="asignar-dig">
+        <option value="">Asignar mesas a…</option>
+        {% for d in digitadores %}
+        <option value="{{ d.id }}">{{ d.full_name or d.username }}</option>
+        {% endfor %}
+      </select>
+      <button class="btn btn-sm btn-card" type="button" data-asignar-bulk disabled>
+        <svg><use href="/static/img/icons.svg#i-user-plus"></use></svg>
+        Asignar selección
+      </button>
+    </div>
+    {% endif %}
   </div>
 
   <div class="mesa-grid mt-4">
     {% for mesa in mesas %}
-    {% set cls = mesa.estado|lower|replace('ó','o') %}
+    {% set cls = mesa.estado|lower|replace('ó','o')|replace(' ', '-') %}
     <div class="mesa-card m-{{ cls }}" data-mesa-card data-mesa-id="{{ mesa.id }}"
          data-mesa-label="Mesa {{ mesa.numero }}" data-estado="{{ mesa.estado }}"
          data-local-id="{{ local.id }}"
          data-search-text="{{ mesa.numero }} aula {{ mesa.aula }} piso {{ mesa.piso }} pabellon {{ mesa.pabellon }}">
       <div class="mesa-card__head">
+        {% if current_user.is_admin %}
+        <label class="ck-wrap" title="Seleccionar para asignar">
+          <input type="checkbox" class="ck" data-asignar-pick="{{ mesa.id }}">
+        </label>
+        {% endif %}
         <span class="mesa-num">{{ mesa.numero }}</span>
-        <span class="badge badge-{{ cls }}" data-estado-badge>
-          {% if mesa.estado == 'VERIFICADA' %}
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>
-          {% elif mesa.estado == 'OBSERVADO' %}
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/></svg>
-          {% else %}
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-          {% endif %}
-          <span>{{ mesa.estado }}</span>
-        </span>
+        <span class="st-chip st-{{ cls }}" data-chip>{{ mesa.estado }}</span>
       </div>
 
       <div class="mesa-card__meta">
@@ -93,30 +108,68 @@
       </div>
       <div class="mesa-card__meta">
         <span class="mono">{{ mesa.electores }} electores</span>
-        {% if mesa.electores_discapacidad %}
-        <span class="mono">{{ mesa.electores_discapacidad }} discap.</span>
-        {% endif %}
+        {% if mesa.electores_discapacidad %}<span class="mono">{{ mesa.electores_discapacidad }} discap.</span>{% endif %}
+        {% if mesa.lote %}<span class="mono" style="color:var(--violet)">{{ mesa.lote.codigo }}</span>{% endif %}
       </div>
 
-      {% if mesa.estado == 'OBSERVADO' and mesa.observacion %}
+      {% if current_user.is_admin %}
+      <div class="field" style="margin-bottom:8px;">
+        <select class="input input-select input-sm" data-asignar-select="{{ mesa.id }}">
+          <option value="">Sin digitador</option>
+          {% for d in digitadores %}
+          <option value="{{ d.id }}" {{ 'selected' if mesa.digitador_id == d.id else '' }}>{{ d.full_name or d.username }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      {% elif mesa.digitador %}
+      <div class="mesa-card__meta">
+        <span class="mono" style="color:var(--cyan)">@{{ mesa.digitador.username }}</span>
+      </div>
+      {% endif %}
+
+      {% if mesa.estado == 'OBSERVADA' and mesa.observacion %}
       <div class="mesa-card__obs" data-obs-text>Observación: {{ mesa.observacion }}</div>
       {% endif %}
 
       <div class="mesa-actions" data-mesa-acciones>
-        <button type="button" class="btn btn-sm {{ 'btn-ok' if mesa.estado == 'VERIFICADA' else 'btn-card' }}"
-                data-set-estado="VERIFICADA" data-mesa-id="{{ mesa.id }}">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>
-          Verificar
-        </button>
-        <button type="button" class="btn btn-sm {{ 'btn-warn' if mesa.estado == 'PENDIENTE' else 'btn-card' }}"
-                data-set-estado="PENDIENTE" data-mesa-id="{{ mesa.id }}">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-          Pendiente
-        </button>
-        <button type="button" class="btn btn-sm {{ 'btn-danger' if mesa.estado == 'OBSERVADO' else 'btn-card' }}"
-                data-set-estado="OBSERVADO" data-mesa-id="{{ mesa.id }}">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
-          Observar
+        {% for dest in mesa.acciones %}
+          {% if dest == 'OBSERVADA' %}
+          <button type="button" class="btn btn-sm btn-danger" data-observar="{{ mesa.id }}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+            Observar
+          </button>
+          {% elif dest == 'CONFORME' %}
+          <button type="button" class="btn btn-sm btn-ok" data-trans="{{ mesa.id }}" data-estado="CONFORME">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>
+            Conforme
+          </button>
+          {% elif dest == 'CERRADA' %}
+          <button type="button" class="btn btn-sm btn-ok" data-trans="{{ mesa.id }}" data-estado="CERRADA">
+            <svg><use href="/static/img/icons.svg#i-vault"></use></svg>
+            Archivar y cerrar
+          </button>
+          {% elif dest == 'PENDIENTE DE CONTROL' %}
+          <button type="button" class="btn btn-sm btn-warn" data-trans="{{ mesa.id }}" data-estado="PENDIENTE DE CONTROL">
+            <svg><use href="/static/img/icons.svg#i-inbox"></use></svg>
+            Llegó original
+          </button>
+          {% else %}
+          <button type="button" class="btn btn-sm btn-card" data-trans="{{ mesa.id }}" data-estado="{{ dest }}">
+            {{ dest }}
+          </button>
+          {% endif %}
+        {% else %}
+          {% if mesa.estado == 'CERRADA' %}
+          <span class="badge badge-on">Archivada</span>
+          {% elif mesa.estado == 'PENDIENTE DE CONTROL' %}
+          <span class="muted" style="font-size:12px;">Llega en lote</span>
+          {% elif mesa.estado == 'PENDIENTE' or mesa.estado == 'EN CONTROL DE CALIDAD' %}
+          <span class="muted" style="font-size:12px;">Sin acción para tu rol</span>
+          {% endif %}
+        {% endfor %}
+        <button type="button" class="btn btn-sm btn-ghost" data-ver-traza="{{ mesa.id }}">
+          <svg><use href="/static/img/icons.svg#i-eye"></use></svg>
+          Traza
         </button>
       </div>
     </div>
@@ -134,13 +187,27 @@
     <h3>Registrar observación</h3>
     <p data-obs-nombre>Mesa</p>
     <div class="field">
-      <label for="obs-input">Detalle de la observación</label>
-      <textarea class="input" id="obs-input" data-obs-input placeholder="Describe el incidente o motivo…"></textarea>
+      <label for="obs-input-det">Detalle de la observación</label>
+      <textarea class="input" id="obs-input-det" rows="3" placeholder="Describe el incidente o motivo…"></textarea>
     </div>
     <div class="modal-actions">
       <button class="btn btn-ghost" type="button" data-close-modal="modal-observar">Cancelar</button>
       <button class="btn btn-danger" type="button" id="btn-observar-confirmar">Guardar observación</button>
     </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-traza">
+  <div class="modal modal-lg" style="position:relative;">
+    <button class="modal__close" type="button" data-close-modal="modal-traza">
+      <svg><use href="/static/img/icons.svg#i-x"></use></svg>
+    </button>
+    <h3>Trazabilidad</h3>
+    <p style="color:var(--muted);" data-traza-nombre>Mesa</p>
+    <div class="sec-title">Historial de acciones</div>
+    <div class="timeline" data-traza-eventos></div>
+    <div class="sec-title">Observaciones</div>
+    <div id="obs-historial"></div>
   </div>
 </div>
 {% endblock %}

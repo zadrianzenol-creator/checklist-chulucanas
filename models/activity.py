@@ -7,6 +7,7 @@ class ActivityLog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=True)
     mesa_id = db.Column(db.Integer, db.ForeignKey("mesas.id"), nullable=True)
+    lote_id = db.Column(db.Integer, db.ForeignKey("lotes.id"), nullable=True)
     tipo = db.Column(db.String(50), nullable=False)
     detalle = db.Column(db.Text, default="")
     ip_address = db.Column(db.String(45), default="")

@@ -2,18 +2,27 @@ from flask import Blueprint, flash, jsonify, redirect, render_template, request,
 from flask_login import current_user, login_required, login_user, logout_user
 
 from database import db
-from models.user import User
+from models.user import ROLES, User
 from utils.decorators import admin_required
 
 auth_bp = Blueprint("auth", __name__)
 
-ROLES_VALIDOS = ("admin", "operador")
+ROLES_VALIDOS = ROLES
+
+
+def landig_url(user):
+    """Página inicial según el rol."""
+    if user.role == "digitador":
+        return url_for("main.bandeja")
+    if user.role == "recepcion":
+        return url_for("main.recepcion")
+    return url_for("main.dashboard")
 
 
 @auth_bp.route("/login", methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for("main.dashboard"))
+        return redirect(landig_url(current_user))
 
     error = None
     if request.method == "POST":
@@ -29,7 +38,7 @@ def login():
             login_user(user, remember=True)
             user.last_active = db.func.now()
             db.session.commit()
-            return redirect(url_for("main.dashboard"))
+            return redirect(landig_url(user))
 
     return render_template("login.html", error=error)
 
@@ -47,8 +56,22 @@ def logout():
 @auth_bp.route("/usuarios")
 @admin_required
 def usuarios():
+    from models.local import Mesa
+
     users = User.query.order_by(User.created_at.desc()).all()
-    return render_template("usuarios.html", users=users, roles=ROLES_VALIDOS)
+    asignados = (
+        db.session.query(Mesa.digitador_id, db.func.count(Mesa.id))
+        .filter(Mesa.digitador_id != None)  # noqa: E711
+        .group_by(Mesa.digitador_id)
+        .all()
+    )
+    conteo = {u_id: n for u_id, n in asignados}
+    return render_template(
+        "usuarios.html",
+        users=users,
+        roles=ROLES_VALIDOS,
+        conteo_mesas=conteo,
+    )
 
 
 @auth_bp.route("/usuarios/crear", methods=["POST"])
@@ -57,14 +80,14 @@ def crear_usuario():
     username = (request.form.get("username") or "").strip()
     password = request.form.get("password") or ""
     full_name = (request.form.get("full_name") or "").strip()
-    role = request.form.get("role") or "operador"
+    role = request.form.get("role") or "digitador"
 
     if not username or not password:
         flash("Usuario y contraseña son obligatorios.", "error")
         return redirect(url_for("auth.usuarios"))
 
     if role not in ROLES_VALIDOS:
-        role = "operador"
+        role = "digitador"
 
     if User.query.filter_by(username=username).first():
         flash(f"El usuario '{username}' ya existe.", "error")

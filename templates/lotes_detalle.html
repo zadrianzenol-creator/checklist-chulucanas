@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% block title %}{{ lote.codigo }} · Control de Actas{% endblock %}
+{% block heading %}Lote {{ lote.codigo }}{% endblock %}
+{% block subtitle %}{{ lote.total_mesas }} mesas · {{ lote.estado }}{% endblock %}
+{% block content %}
+
+<a class="backlink" href="{{ url_for('main.lotes') }}">
+  <svg><use href="/static/img/icons.svg#i-arrow-left"></use></svg>
+  Volver a lotes
+</a>
+
+<div class="card tilt mt-2">
+  <div class="panel">
+    <div class="panel-info">
+      <h3>Lote {{ lote.codigo }}</h3>
+      <div class="addr">
+        <svg><use href="/static/img/icons.svg#i-users"></use></svg>
+        Digitador: <b>{{ lote.digitador.full_name or lote.digitador.username if lote.digitador else 'Aún sin entregar' }}</b>
+      </div>
+      <div class="addr">
+        <svg><use href="/static/img/icons.svg#i-eye"></use></svg>
+        Creado por {{ lote.creador.full_name if lote.creador else '—' }} el {{ lote.creado_en.strftime('%d/%m/%Y %H:%M') if lote.creado_en else '—' }}
+      </div>
+      {% if lote.entregado_en %}
+      <div class="addr">
+        <svg><use href="/static/img/icons.svg#i-external"></use></svg>
+        Entregado el {{ lote.entregado_en.strftime('%d/%m/%Y %H:%M') if lote.entregado_en else '—' }}
+      </div>
+      {% endif %}
+      <div class="panel-chips">
+        <div class="chip-stat"><b>{{ lote.total_mesas }}</b><span>Mesas</span></div>
+        <div class="chip-stat"><b style="color:#6ee7b7;">{{ lote.conformes }}</b><span>Conformes</span></div>
+        <div class="chip-stat"><b style="color:#fb7185;">{{ lote.observadas }}</b><span>Observadas</span></div>
+      </div>
+    </div>
+
+    <div style="min-width:220px; flex:1;">
+      <span class="st-chip st-{{ lote.estado|lower }}" style="font-size:14px;">{{ lote.estado }}</span>
+      {% if lote.estado == 'ARMADO' %}
+      <div class="field" style="margin-top:14px;">
+        <label for="lote-dig">Entregar a digitador</label>
+        <select class="input input-select" id="lote-dig">
+          {% for d in digitadores %}
+          <option value="{{ d.id }}">{{ d.full_name or d.username }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <button class="btn btn-block" type="button" data-entregar-lote="{{ lote.id }}">
+        <svg><use href="/static/img/icons.svg#i-external"></use></svg>
+        Entregar lote para control de calidad
+      </button>
+      {% elif lote.estado == 'ENTREGADO' %}
+      <button class="btn btn-warn btn-block mt-2" type="button" data-recibir-lote="{{ lote.id }}">
+        <svg><use href="/static/img/icons.svg#i-inbox"></use></svg>
+        Marcar lote devuelto a custodia
+      </button>
+      <button class="btn btn-ok btn-block mt-2" type="button" data-archivar-lote="{{ lote.id }}">
+        <svg><use href="/static/img/icons.svg#i-vault"></use></svg>
+        Archivar mesas conformes del lote
+      </button>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<div class="card mt-4">
+  <div class="toolbar">
+    <h3 style="font-family:var(--font-display); font-size:15.5px;">Mesas del lote</h3>
+    <div class="search">
+      <svg><use href="/static/img/icons.svg#i-search"></use></svg>
+      <input class="input" type="search" data-search-input placeholder="Buscar mesa…">
+    </div>
+  </div>
+  <div class="table-wrap mt-4">
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th>Mesa</th>
+          <th>Local</th>
+          <th>Estado</th>
+          <th>Observación</th>
+          <th style="text-align:right;">Seguimiento</th>
+        </tr>
+      </thead>
+      <tbody data-search-group>
+        {% for m in mesas %}
+        <tr data-row-search data-search-text="{{ m.numero }} {{ m.local.nombre }}">
+          <td><b>Mesa {{ m.numero }}</b></td>
+          <td class="muted" style="font-size:13px;">{{ m.local.nombre }}</td>
+          <td><span class="st-chip st-{{ m.estado|lower|replace(' ', '-') }}">{{ m.estado }}</span></td>
+          <td>
+            {% if m.observacion %}
+            <div class="obs-inline">{{ m.observacion[:70] }}</div>
+            {% else %}<span class="muted">—</span>{% endif %}
+          </td>
+          <td style="text-align:right;">
+            <button class="btn btn-sm btn-ghost" type="button" data-ver-traza="{{ m.id }}">
+              <svg><use href="/static/img/icons.svg#i-eye"></use></svg>
+              Ver
+            </button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+
+{% block modals %}
+<div class="modal-overlay" id="modal-traza">
+  <div class="modal modal-lg" style="position:relative;">
+    <button class="modal__close" type="button" data-close-modal="modal-traza">
+      <svg><use href="/static/img/icons.svg#i-x"></use></svg>
+    </button>
+    <h3>Trazabilidad</h3>
+    <p style="color:var(--muted);" data-traza-nombre>Mesa</p>
+    <div class="sec-title">Historial de acciones</div>
+    <div class="timeline" data-traza-eventos></div>
+    <div class="sec-title">Observaciones</div>
+    <div id="obs-historial"></div>
+  </div>
+</div>
+{% endblock %}

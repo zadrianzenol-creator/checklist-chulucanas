@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% block title %}Mi bandeja · Control de Actas Chulucanas 2026{% endblock %}
+{% block heading %}Mi bandeja{% endblock %}
+{% block subtitle %}{{ current_user.full_name or current_user.username }} · registra tus dos momentos de trabajo{% endblock %}
+{% block content %}
+
+<div class="chip-row">
+  <span class="chip-stat"><b>{{ conteo.pendientes }}</b><span>Pendientes</span></span>
+  <span class="chip-stat"><b>{{ conteo.fotos }}</b><span>Foto recibida</span></span>
+  <span class="chip-stat"><b>{{ conteo.registro }}</b><span>En registro</span></span>
+  <span class="chip-stat"><b>{{ conteo.calidad }}</b><span>En control calidad</span></span>
+  <span class="chip-stat"><b style="color:#fb7185;">{{ conteo.observadas }}</b><span>Observadas</span></span>
+  <span class="chip-stat"><b style="color:#4ade80;">{{ terminadas }}</b><span>Concluidas</span></span>
+</div>
+
+<div class="bandeja-grid mt-4">
+  <section>
+    <div class="panel-head">
+      <div>
+        <h3>Fase digital</h3>
+        <p>Avance del acta: pendiente → foto → registro → registrada.</p>
+      </div>
+      <span class="badge badge-chip">{{ digital|map(attribute='mesas')|map('length')|sum or 0 }}</span>
+    </div>
+
+    {% for grupo in digital %}
+    <div class="local-block">
+      <div class="local-block__head">
+        <span class="avatar-lg avatar-sm">{{ grupo.local.nombre.split()[0][0] }}</span>
+        <b>{{ grupo.local.nombre }}</b>
+      </div>
+      <div class="mesa-list">
+        {% for m in grupo.mesas %}
+        <div class="mesa-row" data-mesa-card data-mesa-id="{{ m.id }}" data-estado="{{ m.estado }}" data-mesa-num="{{ m.numero }}">
+          <div class="mesa-row__info">
+            <b>Mesa {{ m.numero }}</b>
+            <span class="muted">Aula {{ m.aula or '—' }} · Piso {{ m.piso or '—' }}</span>
+          </div>
+          <span class="st-chip st-{{ m.estado|lower|replace(' ', '-') }}">{{ m.estado }}</span>
+          {% if m.estado == 'PENDIENTE' %}
+          <button class="btn btn-sm btn-card" type="button" data-trans="{{ m.id }}" data-estado="FOTO RECIBIDA">
+            <svg><use href="/static/img/icons.svg#i-camera"></use></svg>
+            Foto recibida
+          </button>
+          {% elif m.estado == 'FOTO RECIBIDA' %}
+          <button class="btn btn-sm btn-card" type="button" data-trans="{{ m.id }}" data-estado="EN REGISTRO">
+            <svg><use href="/static/img/icons.svg#i-pen"></use></svg>
+            Empezar registro
+          </button>
+          {% elif m.estado == 'EN REGISTRO' %}
+          <button class="btn btn-sm btn-ok" type="button" data-trans="{{ m.id }}" data-estado="REGISTRADA">
+            <svg><use href="/static/img/icons.svg#i-check"></use></svg>
+            Registrada
+          </button>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% else %}
+    <div class="empty">
+      <svg><use href="/static/img/icons.svg#i-check"></use></svg>
+      <p>No tienes mesas en fase digital.</p>
+    </div>
+    {% endfor %}
+  </section>
+
+  <section>
+    <div class="panel-head">
+      <div>
+        <h3>Control de calidad</h3>
+        <p>Compara el acta física con el sistema externo y marca el resultado.</p>
+      </div>
+      <span class="badge badge-chip">{{ calidad|map(attribute='mesas')|map('length')|sum or 0 }}</span>
+    </div>
+
+    {% for grupo in calidad %}
+    <div class="local-block">
+      <div class="local-block__head">
+        <span class="avatar-lg avatar-sm">{{ grupo.local.nombre.split()[0][0] }}</span>
+        <b>{{ grupo.local.nombre }}</b>
+      </div>
+      <div class="mesa-list">
+        {% for m in grupo.mesas %}
+        <div class="mesa-row">
+          <div class="mesa-row__info">
+            <b>Mesa {{ m.numero }}</b>
+            <span class="muted">Lote {{ m.lote.codigo if m.lote else '—' }} · Pab. {{ m.pabellon or '—' }}</span>
+          </div>
+          <div class="mesa-row__acciones">
+            <button class="btn btn-sm btn-ok" type="button" data-trans="{{ m.id }}" data-estado="CONFORME">
+              <svg><use href="/static/img/icons.svg#i-check"></use></svg>
+              Conforme
+            </button>
+            <button class="btn btn-sm btn-danger" type="button" data-observar="{{ m.id }}">
+              <svg><use href="/static/img/icons.svg#i-alert"></use></svg>
+              Observar
+            </button>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% else %}
+    <div class="empty">
+      <svg><use href="/static/img/icons.svg#i-box"></use></svg>
+      <p>No tienes lotes en control de calidad.</p>
+    </div>
+    {% endfor %}
+
+    <div class="note">
+      <svg><use href="/static/img/icons.svg#i-lock"></use></svg>
+      Este sistema no transcribe cantidades de votos: solo registra estados, responsables, fecha/hora y observaciones.
+    </div>
+  </section>
+</div>
+{% endblock %}
+
+{% block modals %}
+<div class="modal-overlay" id="modal-observar">
+  <div class="modal" style="position:relative;">
+    <button class="modal__close" type="button" data-close-modal="modal-observar">
+      <svg><use href="/static/img/icons.svg#i-x"></use></svg>
+    </button>
+    <h3>Registrar observación</h3>
+    <p data-obs-nombre>Mesa</p>
+    <div class="field">
+      <label for="obs-input-b">Detalle de la incidencia</label>
+      <textarea class="input" id="obs-input-b" rows="3" placeholder="Describe la diferencia o incidente detectado…"></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" type="button" data-close-modal="modal-observar">Cancelar</button>
+      <button class="btn btn-danger" type="button" id="btn-observar-confirmar">Guardar observación</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
