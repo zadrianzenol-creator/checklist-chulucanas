@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}Locales y Mesas · Checklist Electoral Chulucanas 2026{% endblock %}
+{% block heading %}Locales y Mesas{% endblock %}
+{% block subtitle %}Verificación de los {{ stats.total_locales }} locales y {{ stats.total_mesas }} mesas del distrito{% endblock %}
+{% set stats = stats %}
+
+{% set q = q or '' %}
+{% block content %}
+
+<div class="card">
+  <div class="toolbar">
+    <form class="search" method="get" action="{{ url_for('main.locales') }}">
+      <svg><use href="/static/img/icons.svg#i-search"></use></svg>
+      <input class="input" type="search" name="q" value="{{ q }}" placeholder="Buscar local, dirección o código…">
+      {% if ubicacion %}<input type="hidden" name="ubicacion" value="{{ ubicacion }}">{% endif %}
+    </form>
+    <div class="seg">
+      <a class="{{ 'on' if not ubicacion else '' }}" href="{{ url_for('main.locales', q=q) }}">Todos</a>
+      <a class="{{ 'on' if ubicacion == 'URBANA' else '' }}" href="{{ url_for('main.locales', ubicacion='URBANA', q=q) }}">Urbanos</a>
+      <a class="{{ 'on' if ubicacion == 'RURAL' else '' }}" href="{{ url_for('main.locales', ubicacion='RURAL', q=q) }}">Rurales</a>
+    </div>
+    <div class="seg" style="margin-left:auto;">
+      <span class="chip-stat">
+        <b>{{ stats.verificadas }}/{{ stats.total_mesas }}</b>
+        <span>Verificadas</span>
+      </span>
+      <span class="chip-stat">
+        <b>{{ stats.avance }}%</b>
+        <span>Avance</span>
+      </span>
+    </div>
+  </div>
+
+  <div class="local-grid mt-4">
+    {% for l in locales %}
+    <div class="card local-card tilt fade-up" style="animation-delay:{{ loop.index0 * 40 }}ms;">
+      <div class="local-card__top">
+        <div class="avatar-lg">{{ l.nombre.split()[0][0] }}{{ (l.nombre.split()[1][0]) if l.nombre.split()|length > 1 else '' }}</div>
+        <div class="flex-1">
+          <h4>{{ l.nombre }}</h4>
+          <p>LV {{ l.codigo }} · {{ l.direccion or 'S/D' }}</p>
+        </div>
+        <span class="badge badge-{{ l.ubicacion|lower }}">{{ l.ubicacion }}</span>
+      </div>
+
+      <div class="local-card__stats">
+        <div><b>{{ l.total_mesas }}</b><span>Mesas</span></div>
+        <div><b>{{ "{:,}".format(l.total_electores) }}</b><span>Electores</span></div>
+        <div><b style="color:var(--green)">{{ l.verificadas }}</b><span>Verificadas</span></div>
+      </div>
+
+      <div class="local-card__foot">
+        <div class="progress" style="flex:1;">
+          <i style="width:{{ l.avance }}%"></i>
+        </div>
+        <span class="pct" style="color: var(--muted);">{{ l.avance }}%</span>
+      </div>
+
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
+        <span class="muted" style="font-size:12.5px;">
+          {{ l.observadas }} observadas · {{ l.pendientes }} pendientes
+        </span>
+        <a class="btn btn-sm btn-card" href="{{ url_for('main.detalle_local', local_id=l.id) }}">
+          Ver mesas
+          <svg><use href="/static/img/icons.svg#i-arrow-left" style="transform:scaleX(-1)"></use></svg>
+        </a>
+      </div>
+    </div>
+    {% else %}
+    <div class="empty">
+      <svg><use href="/static/img/icons.svg#i-search"></use></svg>
+      <p>No se encontraron locales con los filtros aplicados.</p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

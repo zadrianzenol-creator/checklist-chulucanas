@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#05070f">
+  <meta name="description" content="Ingreso - Verificación de locales y mesas de votación Chulucanas 2026">
+  <link rel="manifest" href="/static/manifest.json">
+  <link rel="icon" type="image/svg+xml" href="/static/img/icon.svg">
+  <title>Ingreso · Checklist Electoral Chulucanas 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/app.css">
+</head>
+<body>
+  <div class="bg-scene" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <canvas id="bg3d"></canvas>
+  </div>
+
+  <main class="login-page">
+    <div class="login-wrap">
+      <div class="login-brand">
+        <img src="/static/img/icon.svg" alt="Logo">
+        <h1>Checklist Electoral<span>Locales y Mesas · Chulucanas 2026</span></h1>
+      </div>
+
+      <form class="login-card" method="post" action="{{ url_for('auth.login') }}" autocomplete="off">
+        <h2>Hola, bienvenido</h2>
+        <p>Ingresa con tu usuario para comenzar la verificación.</p>
+
+        {% if error %}
+        <div class="login-error">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/>
+          </svg>
+          <span>{{ error }}</span>
+        </div>
+        {% endif %}
+
+        <div class="field">
+          <label for="username">Usuario</label>
+          <div class="input-shell">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <input class="input" id="username" name="username" type="text" placeholder="ej. admin" required autofocus autocomplete="username">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="password">Contraseña</label>
+          <div class="input-shell">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <input class="input" id="password" name="password" type="password" placeholder="••••••••" required autocomplete="current-password">
+          </div>
+        </div>
+
+        <button class="btn btn-block btn-lg" type="submit">
+          Ingresar
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </button>
+
+        <p class="login-note">Elecciones Generales 2026 · Distrito de Chulucanas</p>
+      </form>
+    </div>
+  </main>
+
+  <div class="toasts" id="toasts"></div>
+
+  <script type="importmap">
+    { "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }
+  </script>
+  <script type="module" src="/static/js/background.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/static/js/sw.js").catch(() => {});
+    }
+  </script>
+</body>
+</html>

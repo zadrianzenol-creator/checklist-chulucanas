@@ -1,0 +1,2534 @@
+{
+  "distrito": "CHULUCANAS",
+  "provincia": "MORROPON",
+  "departamento": "PIURA",
+  "unidad_min": "MORROPON",
+  "locales": [
+    {
+      "codigo": "15304",
+      "nombre": "IE 14612 LUZMILA BRICEÑO CARRASCO",
+      "direccion": "PROL AREQUIPA SN",
+      "ubicacion": "URBANA",
+      "pabellon": "100",
+      "numero_ca": "62",
+      "mesas": [
+        {
+          "orden": 1,
+          "numero": "071390",
+          "aula": "101",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 288,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 2,
+          "numero": "071391",
+          "aula": "101",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 288,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 3,
+          "numero": "071392",
+          "aula": "102",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 288,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 4,
+          "numero": "071393",
+          "aula": "102",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 288,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 5,
+          "numero": "071394",
+          "aula": "201",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 288,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 6,
+          "numero": "071395",
+          "aula": "201",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 288,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 7,
+          "numero": "071396",
+          "aula": "202",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 288,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 8,
+          "numero": "071397",
+          "aula": "202",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 288,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 9,
+          "numero": "071398",
+          "aula": "203",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 288,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 10,
+          "numero": "071399",
+          "aula": "203",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 288,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 11,
+          "numero": "071400",
+          "aula": "204",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 288,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 12,
+          "numero": "071401",
+          "aula": "204",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 288,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 13,
+          "numero": "071402",
+          "aula": "205",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 288,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 14,
+          "numero": "071403",
+          "aula": "205",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 288,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 15,
+          "numero": "071404",
+          "aula": "301",
+          "piso": "1",
+          "pabellon": "300",
+          "electores": 288,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 16,
+          "numero": "071405",
+          "aula": "301",
+          "piso": "1",
+          "pabellon": "300",
+          "electores": 288,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 17,
+          "numero": "071406",
+          "aula": "302",
+          "piso": "1",
+          "pabellon": "300",
+          "electores": 288,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 18,
+          "numero": "071407",
+          "aula": "302",
+          "piso": "1",
+          "pabellon": "300",
+          "electores": 287,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 19,
+          "numero": "071408",
+          "aula": "401",
+          "piso": "1",
+          "pabellon": "400",
+          "electores": 287,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 20,
+          "numero": "071409",
+          "aula": "401",
+          "piso": "1",
+          "pabellon": "400",
+          "electores": 287,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 21,
+          "numero": "071410",
+          "aula": "402",
+          "piso": "1",
+          "pabellon": "400",
+          "electores": 287,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 22,
+          "numero": "071411",
+          "aula": "402",
+          "piso": "1",
+          "pabellon": "400",
+          "electores": 287,
+          "electores_discapacidad": 43
+        },
+        {
+          "orden": 23,
+          "numero": "071412",
+          "aula": "403",
+          "piso": "1",
+          "pabellon": "400",
+          "electores": 287,
+          "electores_discapacidad": 43
+        },
+        {
+          "orden": 24,
+          "numero": "071413",
+          "aula": "403",
+          "piso": "1",
+          "pabellon": "400",
+          "electores": 288,
+          "electores_discapacidad": 0
+        }
+      ],
+      "total_electores": 6906,
+      "total_mesas": 24
+    },
+    {
+      "codigo": "15305",
+      "nombre": "IE 14614 ROSA AURELIA HERENCIA PIMENTEL DE TORRES",
+      "direccion": "CALLE AMAZONAS 200",
+      "ubicacion": "URBANA",
+      "pabellon": "100",
+      "numero_ca": "63",
+      "mesas": [
+        {
+          "orden": 1,
+          "numero": "071436",
+          "aula": "101",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 2,
+          "numero": "071437",
+          "aula": "201",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 60
+        },
+        {
+          "orden": 3,
+          "numero": "071438",
+          "aula": "102",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 4,
+          "numero": "071439",
+          "aula": "103",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 5,
+          "numero": "071440",
+          "aula": "104",
+          "piso": "3",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 6,
+          "numero": "071441",
+          "aula": "105",
+          "piso": "3",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        }
+      ],
+      "total_electores": 1800,
+      "total_mesas": 6
+    },
+    {
+      "codigo": "15309",
+      "nombre": "IE 15109",
+      "direccion": "CALLE PRINCIPAL SN CCPP SANCOR",
+      "ubicacion": "RURAL",
+      "pabellon": "100",
+      "numero_ca": "64",
+      "mesas": [
+        {
+          "orden": 1,
+          "numero": "071414",
+          "aula": "101",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 35
+        },
+        {
+          "orden": 2,
+          "numero": "071415",
+          "aula": "102",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 35
+        },
+        {
+          "orden": 3,
+          "numero": "071416",
+          "aula": "103",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 4,
+          "numero": "071417",
+          "aula": "104",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 5,
+          "numero": "071418",
+          "aula": "105",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 6,
+          "numero": "071419",
+          "aula": "201",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 7,
+          "numero": "071420",
+          "aula": "301",
+          "piso": "1",
+          "pabellon": "300",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 8,
+          "numero": "071421",
+          "aula": "302",
+          "piso": "1",
+          "pabellon": "300",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 9,
+          "numero": "071422",
+          "aula": "303",
+          "piso": "2",
+          "pabellon": "300",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 10,
+          "numero": "071423",
+          "aula": "304",
+          "piso": "2",
+          "pabellon": "300",
+          "electores": 300,
+          "electores_discapacidad": 0
+        }
+      ],
+      "total_electores": 3000,
+      "total_mesas": 10
+    },
+    {
+      "codigo": "15317",
+      "nombre": "IEP INGENIEROS JUNIOR",
+      "direccion": "JR AYACUCHO 181",
+      "ubicacion": "URBANA",
+      "pabellon": "100",
+      "numero_ca": "65",
+      "mesas": [
+        {
+          "orden": 1,
+          "numero": "071424",
+          "aula": "101",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 2,
+          "numero": "071425",
+          "aula": "102",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 22
+        },
+        {
+          "orden": 3,
+          "numero": "071426",
+          "aula": "201",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 4,
+          "numero": "071427",
+          "aula": "202",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 5,
+          "numero": "071428",
+          "aula": "203",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        }
+      ],
+      "total_electores": 1500,
+      "total_mesas": 5
+    },
+    {
+      "codigo": "15318",
+      "nombre": "IEP SAN GABRIEL",
+      "direccion": "JR ICA 435",
+      "ubicacion": "URBANA",
+      "pabellon": "100",
+      "numero_ca": "66",
+      "mesas": [
+        {
+          "orden": 1,
+          "numero": "071429",
+          "aula": "101",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 2,
+          "numero": "071430",
+          "aula": "102",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 3,
+          "numero": "071431",
+          "aula": "103",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 4,
+          "numero": "071432",
+          "aula": "104",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 5,
+          "numero": "071433",
+          "aula": "105",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 6,
+          "numero": "071434",
+          "aula": "201",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 36
+        },
+        {
+          "orden": 7,
+          "numero": "071435",
+          "aula": "202",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 37
+        }
+      ],
+      "total_electores": 2100,
+      "total_mesas": 7
+    },
+    {
+      "codigo": "15323",
+      "nombre": "IE VICUS",
+      "direccion": "MZ C LT 40 CCPP VICUS",
+      "ubicacion": "RURAL",
+      "pabellon": "100",
+      "numero_ca": "67",
+      "mesas": [
+        {
+          "orden": 1,
+          "numero": "071450",
+          "aula": "101",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 40
+        },
+        {
+          "orden": 2,
+          "numero": "071451",
+          "aula": "102",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 40
+        },
+        {
+          "orden": 3,
+          "numero": "071452",
+          "aula": "201",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 4,
+          "numero": "071453",
+          "aula": "202",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 5,
+          "numero": "071454",
+          "aula": "203",
+          "piso": "2",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 6,
+          "numero": "071455",
+          "aula": "204",
+          "piso": "2",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 7,
+          "numero": "071456",
+          "aula": "205",
+          "piso": "2",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 8,
+          "numero": "071457",
+          "aula": "301",
+          "piso": "1",
+          "pabellon": "300",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 9,
+          "numero": "071458",
+          "aula": "302",
+          "piso": "2",
+          "pabellon": "300",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 10,
+          "numero": "071459",
+          "aula": "303",
+          "piso": "2",
+          "pabellon": "300",
+          "electores": 300,
+          "electores_discapacidad": 0
+        }
+      ],
+      "total_electores": 3000,
+      "total_mesas": 10
+    },
+    {
+      "codigo": "28655",
+      "nombre": "IE 15199 SAN JOSE",
+      "direccion": "AV GRAU 51-1 CCPP PACCHA",
+      "ubicacion": "RURAL",
+      "pabellon": "100",
+      "numero_ca": "68",
+      "mesas": [
+        {
+          "orden": 1,
+          "numero": "071460",
+          "aula": "104",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 40
+        },
+        {
+          "orden": 2,
+          "numero": "071461",
+          "aula": "105",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 40
+        },
+        {
+          "orden": 3,
+          "numero": "071462",
+          "aula": "101",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 4,
+          "numero": "071463",
+          "aula": "102",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 5,
+          "numero": "071464",
+          "aula": "103",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 6,
+          "numero": "071465",
+          "aula": "106",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 7,
+          "numero": "071466",
+          "aula": "107",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 8,
+          "numero": "071467",
+          "aula": "108",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 9,
+          "numero": "071468",
+          "aula": "109",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 10,
+          "numero": "071469",
+          "aula": "110",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        }
+      ],
+      "total_electores": 3000,
+      "total_mesas": 10
+    },
+    {
+      "codigo": "28677",
+      "nombre": "IE JESUS DIVINO MAESTRO",
+      "direccion": "AV PRINCIPAL SN CCPP VICUS",
+      "ubicacion": "RURAL",
+      "pabellon": "100",
+      "numero_ca": "69",
+      "mesas": [
+        {
+          "orden": 1,
+          "numero": "071470",
+          "aula": "103",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 2,
+          "numero": "071471",
+          "aula": "104",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 3,
+          "numero": "071472",
+          "aula": "101",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 35
+        },
+        {
+          "orden": 4,
+          "numero": "071473",
+          "aula": "102",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 36
+        },
+        {
+          "orden": 5,
+          "numero": "071474",
+          "aula": "201",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 6,
+          "numero": "071475",
+          "aula": "202",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 7,
+          "numero": "071476",
+          "aula": "203",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        }
+      ],
+      "total_electores": 2100,
+      "total_mesas": 7
+    },
+    {
+      "codigo": "41054",
+      "nombre": "IEP SANTA MARGARITA",
+      "direccion": "JR AMAZONAS 1189",
+      "ubicacion": "URBANA",
+      "pabellon": "100",
+      "numero_ca": "70",
+      "mesas": [
+        {
+          "orden": 1,
+          "numero": "071484",
+          "aula": "101",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 38
+        },
+        {
+          "orden": 2,
+          "numero": "071485",
+          "aula": "102",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 37
+        },
+        {
+          "orden": 3,
+          "numero": "071486",
+          "aula": "103",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 4,
+          "numero": "071487",
+          "aula": "104",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 5,
+          "numero": "071488",
+          "aula": "105",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 6,
+          "numero": "071489",
+          "aula": "106",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 7,
+          "numero": "071490",
+          "aula": "107",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        }
+      ],
+      "total_electores": 2100,
+      "total_mesas": 7
+    },
+    {
+      "codigo": "4223",
+      "nombre": "IE 14611 ROSA DE SANTA MARIA",
+      "direccion": "AV LAMBAYEQUE 299",
+      "ubicacion": "URBANA",
+      "pabellon": "100",
+      "numero_ca": "71",
+      "mesas": [
+        {
+          "orden": 1,
+          "numero": "071491",
+          "aula": "102",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 2,
+          "numero": "071492",
+          "aula": "103",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 3,
+          "numero": "071493",
+          "aula": "104",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 4,
+          "numero": "071494",
+          "aula": "105",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 5,
+          "numero": "071495",
+          "aula": "106",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 6,
+          "numero": "071496",
+          "aula": "107",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 7,
+          "numero": "071497",
+          "aula": "108",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 8,
+          "numero": "071498",
+          "aula": "101",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 58
+        }
+      ],
+      "total_electores": 2400,
+      "total_mesas": 8
+    },
+    {
+      "codigo": "4224",
+      "nombre": "IE 14615 LA INMACULADA",
+      "direccion": "CALLE LIMA 206",
+      "ubicacion": "URBANA",
+      "pabellon": "100",
+      "numero_ca": "72",
+      "mesas": [
+        {
+          "orden": 1,
+          "numero": "071499",
+          "aula": "101",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 2,
+          "numero": "071500",
+          "aula": "202",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 56
+        },
+        {
+          "orden": 3,
+          "numero": "071501",
+          "aula": "201",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 4,
+          "numero": "071502",
+          "aula": "203",
+          "piso": "2",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 5,
+          "numero": "071503",
+          "aula": "204",
+          "piso": "2",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        }
+      ],
+      "total_electores": 1500,
+      "total_mesas": 5
+    },
+    {
+      "codigo": "4225",
+      "nombre": "IE 14616 SABINA CUEVA CASTILLO",
+      "direccion": "JR PUNO 300",
+      "ubicacion": "URBANA",
+      "pabellon": "100",
+      "numero_ca": "73",
+      "mesas": [
+        {
+          "orden": 1,
+          "numero": "071504",
+          "aula": "101",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 2,
+          "numero": "071505",
+          "aula": "102",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 3,
+          "numero": "071506",
+          "aula": "103",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 4,
+          "numero": "071507",
+          "aula": "104",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 5,
+          "numero": "071508",
+          "aula": "201",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 50
+        },
+        {
+          "orden": 6,
+          "numero": "071509",
+          "aula": "203",
+          "piso": "2",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 7,
+          "numero": "071510",
+          "aula": "202",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 50
+        }
+      ],
+      "total_electores": 2100,
+      "total_mesas": 7
+    },
+    {
+      "codigo": "4226",
+      "nombre": "IE 14617 JOSE IGNACIO TAVARA PASAPERA",
+      "direccion": "CALLE LORETO 600",
+      "ubicacion": "URBANA",
+      "pabellon": "200",
+      "numero_ca": "74",
+      "mesas": [
+        {
+          "orden": 1,
+          "numero": "071511",
+          "aula": "201",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 56
+        },
+        {
+          "orden": 2,
+          "numero": "071512",
+          "aula": "101",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 3,
+          "numero": "071513",
+          "aula": "102",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 4,
+          "numero": "071514",
+          "aula": "202",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 5,
+          "numero": "071515",
+          "aula": "203",
+          "piso": "2",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 6,
+          "numero": "071516",
+          "aula": "204",
+          "piso": "2",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 7,
+          "numero": "071517",
+          "aula": "205",
+          "piso": "2",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        }
+      ],
+      "total_electores": 2100,
+      "total_mesas": 7
+    },
+    {
+      "codigo": "4227",
+      "nombre": "IE 15022 JUAN PALACIOS PINTADO",
+      "direccion": "JR TACNA 407",
+      "ubicacion": "URBANA",
+      "pabellon": "100",
+      "numero_ca": "75",
+      "mesas": [
+        {
+          "orden": 1,
+          "numero": "071518",
+          "aula": "103",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 2,
+          "numero": "071519",
+          "aula": "201",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 3,
+          "numero": "071520",
+          "aula": "202",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 4,
+          "numero": "071521",
+          "aula": "203",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 5,
+          "numero": "071522",
+          "aula": "301",
+          "piso": "1",
+          "pabellon": "300",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 6,
+          "numero": "071523",
+          "aula": "101",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 40
+        },
+        {
+          "orden": 7,
+          "numero": "071524",
+          "aula": "102",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 39
+        }
+      ],
+      "total_electores": 2100,
+      "total_mesas": 7
+    },
+    {
+      "codigo": "4229",
+      "nombre": "IE 33 AGROPECUARIO AMAUTA",
+      "direccion": "AV RAMON CASTILLA SN",
+      "ubicacion": "URBANA",
+      "pabellon": "100",
+      "numero_ca": "76",
+      "mesas": [
+        {
+          "orden": 1,
+          "numero": "071525",
+          "aula": "103",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 2,
+          "numero": "071526",
+          "aula": "104",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 3,
+          "numero": "071527",
+          "aula": "105",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 4,
+          "numero": "071528",
+          "aula": "106",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 5,
+          "numero": "071529",
+          "aula": "107",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 6,
+          "numero": "071530",
+          "aula": "201",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 7,
+          "numero": "071531",
+          "aula": "202",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 8,
+          "numero": "071532",
+          "aula": "101",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 60
+        },
+        {
+          "orden": 9,
+          "numero": "071533",
+          "aula": "203",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 10,
+          "numero": "071534",
+          "aula": "204",
+          "piso": "2",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 11,
+          "numero": "071535",
+          "aula": "205",
+          "piso": "2",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 12,
+          "numero": "071536",
+          "aula": "102",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 60
+        },
+        {
+          "orden": 13,
+          "numero": "071537",
+          "aula": "206",
+          "piso": "2",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 14,
+          "numero": "071538",
+          "aula": "207",
+          "piso": "2",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        }
+      ],
+      "total_electores": 4200,
+      "total_mesas": 14
+    },
+    {
+      "codigo": "4230",
+      "nombre": "IE IGNACIO ESCUDERO",
+      "direccion": "CALLE BAQUIJANO Y CARRILLO SN",
+      "ubicacion": "URBANA",
+      "pabellon": "100",
+      "numero_ca": "77",
+      "mesas": [
+        {
+          "orden": 1,
+          "numero": "071539",
+          "aula": "101",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 34
+        },
+        {
+          "orden": 2,
+          "numero": "071540",
+          "aula": "102",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 34
+        },
+        {
+          "orden": 3,
+          "numero": "071541",
+          "aula": "201",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 4,
+          "numero": "071542",
+          "aula": "202",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 5,
+          "numero": "071543",
+          "aula": "301",
+          "piso": "1",
+          "pabellon": "300",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 6,
+          "numero": "071544",
+          "aula": "302",
+          "piso": "1",
+          "pabellon": "300",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 7,
+          "numero": "071545",
+          "aula": "303",
+          "piso": "1",
+          "pabellon": "300",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 8,
+          "numero": "071546",
+          "aula": "401",
+          "piso": "1",
+          "pabellon": "400",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 9,
+          "numero": "071547",
+          "aula": "501",
+          "piso": "1",
+          "pabellon": "500",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 10,
+          "numero": "071548",
+          "aula": "502",
+          "piso": "1",
+          "pabellon": "500",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 11,
+          "numero": "071549",
+          "aula": "503",
+          "piso": "1",
+          "pabellon": "500",
+          "electores": 300,
+          "electores_discapacidad": 0
+        }
+      ],
+      "total_electores": 3300,
+      "total_mesas": 11
+    },
+    {
+      "codigo": "4232",
+      "nombre": "IEP JOHANNES GUTEMBERG",
+      "direccion": "CALLE PISAGUA 1336",
+      "ubicacion": "URBANA",
+      "pabellon": "100",
+      "numero_ca": "78",
+      "mesas": [
+        {
+          "orden": 1,
+          "numero": "071550",
+          "aula": "102",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 2,
+          "numero": "071551",
+          "aula": "103",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 3,
+          "numero": "071552",
+          "aula": "101",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 35
+        },
+        {
+          "orden": 4,
+          "numero": "071553",
+          "aula": "101",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 36
+        },
+        {
+          "orden": 5,
+          "numero": "071554",
+          "aula": "104",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 6,
+          "numero": "071555",
+          "aula": "105",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 7,
+          "numero": "071556",
+          "aula": "106",
+          "piso": "3",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 8,
+          "numero": "071557",
+          "aula": "107",
+          "piso": "3",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 9,
+          "numero": "071558",
+          "aula": "108",
+          "piso": "3",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        }
+      ],
+      "total_electores": 2700,
+      "total_mesas": 9
+    },
+    {
+      "codigo": "4233",
+      "nombre": "IE MARIA AUXILIADORA",
+      "direccion": "CALLE ANDRES AVELINO CACERES MZ R LT 1",
+      "ubicacion": "URBANA",
+      "pabellon": "100",
+      "numero_ca": "79",
+      "mesas": [
+        {
+          "orden": 1,
+          "numero": "071559",
+          "aula": "102",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 2,
+          "numero": "071560",
+          "aula": "103",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 3,
+          "numero": "071561",
+          "aula": "104",
+          "piso": "3",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 4,
+          "numero": "071562",
+          "aula": "105",
+          "piso": "3",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 5,
+          "numero": "071563",
+          "aula": "106",
+          "piso": "3",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 6,
+          "numero": "071564",
+          "aula": "202",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 7,
+          "numero": "071565",
+          "aula": "203",
+          "piso": "2",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 8,
+          "numero": "071566",
+          "aula": "204",
+          "piso": "2",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 9,
+          "numero": "071567",
+          "aula": "205",
+          "piso": "2",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 10,
+          "numero": "071568",
+          "aula": "206",
+          "piso": "3",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 11,
+          "numero": "071569",
+          "aula": "207",
+          "piso": "3",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 12,
+          "numero": "071570",
+          "aula": "101",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 46
+        },
+        {
+          "orden": 13,
+          "numero": "071571",
+          "aula": "201",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 47
+        },
+        {
+          "orden": 14,
+          "numero": "071572",
+          "aula": "208",
+          "piso": "3",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        }
+      ],
+      "total_electores": 4200,
+      "total_mesas": 14
+    },
+    {
+      "codigo": "4234",
+      "nombre": "IE 20037 PARROQUIAL SANTISIMA CRUZ",
+      "direccion": "JR LIMA 907",
+      "ubicacion": "URBANA",
+      "pabellon": "100",
+      "numero_ca": "80",
+      "mesas": [
+        {
+          "orden": 1,
+          "numero": "071573",
+          "aula": "102",
+          "piso": "3",
+          "pabellon": "100",
+          "electores": 295,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 2,
+          "numero": "071574",
+          "aula": "103",
+          "piso": "3",
+          "pabellon": "100",
+          "electores": 295,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 3,
+          "numero": "071575",
+          "aula": "201",
+          "piso": "2",
+          "pabellon": "200",
+          "electores": 295,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 4,
+          "numero": "071576",
+          "aula": "202",
+          "piso": "2",
+          "pabellon": "200",
+          "electores": 295,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 5,
+          "numero": "071577",
+          "aula": "203",
+          "piso": "2",
+          "pabellon": "200",
+          "electores": 295,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 6,
+          "numero": "071578",
+          "aula": "302",
+          "piso": "2",
+          "pabellon": "300",
+          "electores": 295,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 7,
+          "numero": "071579",
+          "aula": "303",
+          "piso": "2",
+          "pabellon": "300",
+          "electores": 295,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 8,
+          "numero": "071580",
+          "aula": "304",
+          "piso": "2",
+          "pabellon": "300",
+          "electores": 295,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 9,
+          "numero": "071581",
+          "aula": "401",
+          "piso": "1",
+          "pabellon": "400",
+          "electores": 295,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 10,
+          "numero": "071582",
+          "aula": "403",
+          "piso": "2",
+          "pabellon": "400",
+          "electores": 294,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 11,
+          "numero": "071583",
+          "aula": "404",
+          "piso": "2",
+          "pabellon": "400",
+          "electores": 294,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 12,
+          "numero": "071584",
+          "aula": "405",
+          "piso": "2",
+          "pabellon": "400",
+          "electores": 294,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 13,
+          "numero": "071585",
+          "aula": "406",
+          "piso": "2",
+          "pabellon": "400",
+          "electores": 294,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 14,
+          "numero": "071586",
+          "aula": "407",
+          "piso": "3",
+          "pabellon": "400",
+          "electores": 294,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 15,
+          "numero": "071587",
+          "aula": "408",
+          "piso": "3",
+          "pabellon": "400",
+          "electores": 294,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 16,
+          "numero": "071588",
+          "aula": "409",
+          "piso": "3",
+          "pabellon": "400",
+          "electores": 294,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 17,
+          "numero": "071589",
+          "aula": "410",
+          "piso": "3",
+          "pabellon": "400",
+          "electores": 294,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 18,
+          "numero": "071590",
+          "aula": "411",
+          "piso": "3",
+          "pabellon": "400",
+          "electores": 294,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 19,
+          "numero": "071591",
+          "aula": "412",
+          "piso": "4",
+          "pabellon": "400",
+          "electores": 294,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 20,
+          "numero": "071592",
+          "aula": "413",
+          "piso": "4",
+          "pabellon": "400",
+          "electores": 294,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 21,
+          "numero": "071593",
+          "aula": "414",
+          "piso": "4",
+          "pabellon": "400",
+          "electores": 294,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 22,
+          "numero": "071594",
+          "aula": "101",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 294,
+          "electores_discapacidad": 60
+        },
+        {
+          "orden": 23,
+          "numero": "071595",
+          "aula": "301",
+          "piso": "1",
+          "pabellon": "300",
+          "electores": 294,
+          "electores_discapacidad": 60
+        },
+        {
+          "orden": 24,
+          "numero": "071596",
+          "aula": "402",
+          "piso": "1",
+          "pabellon": "400",
+          "electores": 294,
+          "electores_discapacidad": 60
+        }
+      ],
+      "total_electores": 7065,
+      "total_mesas": 24
+    },
+    {
+      "codigo": "51631",
+      "nombre": "IEP ROSA DE AMERICA",
+      "direccion": "JR ICA 440",
+      "ubicacion": "URBANA",
+      "pabellon": "100",
+      "numero_ca": "81",
+      "mesas": [
+        {
+          "orden": 1,
+          "numero": "071597",
+          "aula": "101",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 49
+        },
+        {
+          "orden": 2,
+          "numero": "071598",
+          "aula": "102",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 50
+        },
+        {
+          "orden": 3,
+          "numero": "071599",
+          "aula": "103",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 4,
+          "numero": "071600",
+          "aula": "104",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 5,
+          "numero": "071601",
+          "aula": "105",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 6,
+          "numero": "071602",
+          "aula": "106",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 7,
+          "numero": "071603",
+          "aula": "107",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        }
+      ],
+      "total_electores": 2100,
+      "total_mesas": 7
+    },
+    {
+      "codigo": "53625",
+      "nombre": "IE ALFONSO UGARTE",
+      "direccion": "CALLE FRANCISCO BOLOGNESI SN",
+      "ubicacion": "RURAL",
+      "pabellon": "100",
+      "numero_ca": "82",
+      "mesas": [
+        {
+          "orden": 1,
+          "numero": "904118",
+          "aula": "101",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 284,
+          "electores_discapacidad": 32
+        },
+        {
+          "orden": 2,
+          "numero": "904119",
+          "aula": "102",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 285,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 3,
+          "numero": "904120",
+          "aula": "103",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 285,
+          "electores_discapacidad": 0
+        }
+      ],
+      "total_electores": 854,
+      "total_mesas": 3
+    },
+    {
+      "codigo": "54092",
+      "nombre": "IE SAN RAMON",
+      "direccion": "AV ENRIQUE CHECA EGUIGUREN 145",
+      "ubicacion": "URBANA",
+      "pabellon": "100",
+      "numero_ca": "83",
+      "mesas": [
+        {
+          "orden": 1,
+          "numero": "071604",
+          "aula": "101",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 299,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 2,
+          "numero": "071605",
+          "aula": "102",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 3,
+          "numero": "071606",
+          "aula": "103",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 4,
+          "numero": "071607",
+          "aula": "104",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 5,
+          "numero": "071608",
+          "aula": "105",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 6,
+          "numero": "071609",
+          "aula": "106",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 299,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 7,
+          "numero": "071610",
+          "aula": "107",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 8,
+          "numero": "071611",
+          "aula": "201",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 9,
+          "numero": "071612",
+          "aula": "202",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 10,
+          "numero": "071613",
+          "aula": "203",
+          "piso": "2",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 11,
+          "numero": "071614",
+          "aula": "204",
+          "piso": "2",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 12,
+          "numero": "071615",
+          "aula": "205",
+          "piso": "2",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 13,
+          "numero": "071616",
+          "aula": "206",
+          "piso": "3",
+          "pabellon": "200",
+          "electores": 299,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 14,
+          "numero": "071617",
+          "aula": "207",
+          "piso": "3",
+          "pabellon": "200",
+          "electores": 299,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 15,
+          "numero": "071618",
+          "aula": "208",
+          "piso": "3",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 16,
+          "numero": "071619",
+          "aula": "301",
+          "piso": "1",
+          "pabellon": "300",
+          "electores": 299,
+          "electores_discapacidad": 47
+        },
+        {
+          "orden": 17,
+          "numero": "071620",
+          "aula": "302",
+          "piso": "1",
+          "pabellon": "300",
+          "electores": 299,
+          "electores_discapacidad": 47
+        },
+        {
+          "orden": 18,
+          "numero": "071621",
+          "aula": "303",
+          "piso": "1",
+          "pabellon": "300",
+          "electores": 299,
+          "electores_discapacidad": 48
+        },
+        {
+          "orden": 19,
+          "numero": "071622",
+          "aula": "304",
+          "piso": "1",
+          "pabellon": "300",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 20,
+          "numero": "071623",
+          "aula": "401",
+          "piso": "1",
+          "pabellon": "400",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 21,
+          "numero": "071624",
+          "aula": "501",
+          "piso": "1",
+          "pabellon": "500",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 22,
+          "numero": "071625",
+          "aula": "502",
+          "piso": "1",
+          "pabellon": "500",
+          "electores": 300,
+          "electores_discapacidad": 0
+        }
+      ],
+      "total_electores": 6593,
+      "total_mesas": 22
+    },
+    {
+      "codigo": "55644",
+      "nombre": "IE 14619 YAPATERA",
+      "direccion": "CARRETERA CCPP YAPATERA SN",
+      "ubicacion": "RURAL",
+      "pabellon": "100",
+      "numero_ca": "84",
+      "mesas": [
+        {
+          "orden": 1,
+          "numero": "071442",
+          "aula": "101",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 2,
+          "numero": "071443",
+          "aula": "102",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 3,
+          "numero": "071444",
+          "aula": "102",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 4,
+          "numero": "071445",
+          "aula": "103",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 5,
+          "numero": "071446",
+          "aula": "104",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 6,
+          "numero": "071447",
+          "aula": "105",
+          "piso": "2",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 7,
+          "numero": "071448",
+          "aula": "201",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 36
+        },
+        {
+          "orden": 8,
+          "numero": "071449",
+          "aula": "201",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 37
+        }
+      ],
+      "total_electores": 2400,
+      "total_mesas": 8
+    },
+    {
+      "codigo": "55645",
+      "nombre": "IE 14624 MARIA ALBINA BACA DE LEON",
+      "direccion": "CALLE SAN LUIS CON PJE L CCPP LA ENCANTADA",
+      "ubicacion": "RURAL",
+      "pabellon": "100",
+      "numero_ca": "85",
+      "mesas": [
+        {
+          "orden": 1,
+          "numero": "071477",
+          "aula": "101",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 300,
+          "electores_discapacidad": 35
+        },
+        {
+          "orden": 2,
+          "numero": "071478",
+          "aula": "201",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 34
+        },
+        {
+          "orden": 3,
+          "numero": "071479",
+          "aula": "202",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 4,
+          "numero": "071480",
+          "aula": "301",
+          "piso": "1",
+          "pabellon": "300",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 5,
+          "numero": "071481",
+          "aula": "302",
+          "piso": "1",
+          "pabellon": "300",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 6,
+          "numero": "071482",
+          "aula": "401",
+          "piso": "1",
+          "pabellon": "400",
+          "electores": 300,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 7,
+          "numero": "071483",
+          "aula": "402",
+          "piso": "1",
+          "pabellon": "400",
+          "electores": 300,
+          "electores_discapacidad": 0
+        }
+      ],
+      "total_electores": 2100,
+      "total_mesas": 7
+    },
+    {
+      "codigo": "7180",
+      "nombre": "IE JOSE GALVEZ EGUSQUIZA",
+      "direccion": "AV JOSE IGNACIO TAVARA SN",
+      "ubicacion": "RURAL",
+      "pabellon": "100",
+      "numero_ca": "86",
+      "mesas": [
+        {
+          "orden": 1,
+          "numero": "904111",
+          "aula": "101",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 295,
+          "electores_discapacidad": 20
+        },
+        {
+          "orden": 2,
+          "numero": "904112",
+          "aula": "102",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 296,
+          "electores_discapacidad": 0
+        }
+      ],
+      "total_electores": 591,
+      "total_mesas": 2
+    },
+    {
+      "codigo": "7592",
+      "nombre": "IE JOSE MARIA ARGUEDAS ALTAMIRANO",
+      "direccion": "SECTOR 4 ESQUINAS MZ G2 LT 11 VILLA BATANES",
+      "ubicacion": "RURAL",
+      "pabellon": "100",
+      "numero_ca": "87",
+      "mesas": [
+        {
+          "orden": 1,
+          "numero": "904113",
+          "aula": "101",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 260,
+          "electores_discapacidad": 31
+        },
+        {
+          "orden": 2,
+          "numero": "904114",
+          "aula": "102",
+          "piso": "1",
+          "pabellon": "100",
+          "electores": 261,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 3,
+          "numero": "904115",
+          "aula": "201",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 261,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 4,
+          "numero": "904116",
+          "aula": "202",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 260,
+          "electores_discapacidad": 0
+        },
+        {
+          "orden": 5,
+          "numero": "904117",
+          "aula": "203",
+          "piso": "1",
+          "pabellon": "200",
+          "electores": 260,
+          "electores_discapacidad": 0
+        }
+      ],
+      "total_electores": 1302,
+      "total_mesas": 5
+    }
+  ]
+}
